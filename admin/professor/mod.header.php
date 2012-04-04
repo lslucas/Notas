@@ -41,7 +41,7 @@ $include_js = <<<end
 
 
    $('#orderby').change(function(){
-     window.location.href='?p=cadastro${pag}${letter}&orderby='+$(this).val();
+     window.location.href='?p={$p}{$pag}{$letter}&orderby='+$(this).val();
    });
 
 
