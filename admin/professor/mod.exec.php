@@ -28,6 +28,7 @@
      #autoinsert
      include_once $rp.'inc.autoinsert.php';
 
+	 $res['tipo']='Professor';
 	 $qry=false;
      $sql= "UPDATE ".TABLE_PREFIX."_${var['path']} SET
 
@@ -36,6 +37,7 @@
   		  ${var['pre']}_rg=?,
 		  ${var['pre']}_telefone=?,
 		  ${var['pre']}_celular=?,
+		  ${var['pre']}_tipo=?,
 		  ${var['pre']}_titulos=?
 	";
      $sql.=" WHERE ${var['pre']}_id=?";
@@ -44,12 +46,13 @@
 
 	 else {
 
-		 $qry->bind_param('ssssssi',
+		 $qry->bind_param('sssssssi',
 			 $res['registro'],
 			 $res['cpf'],
 			 $res['rg'],
 			 $res['telefone'],
 			 $res['celular'],
+			 $res['tipo'],
 			 $res['titulos'],
 			 $res['item']); 
 		 $qry->execute();
@@ -65,7 +68,6 @@
       /*
       *se for inserçao é cria uma senha e envia por email
       */
-	 $res['tipo'] = 'Professor';
      if ($act=='insert') {
       $senha	     = gera_senha(3);
       $form['senha'] = md5($senha);
