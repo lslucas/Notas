@@ -1,0 +1,34 @@
+.small {
+	font-size: 8pt;
+}
+.color-positive, .blue {
+	color:#264409 !important;
+}
+.color-negative, .red {
+	color:#8A1F11 !important;
+}
+.color-inative, .silver {
+	color:#CCC !important;
+}
+div.growlUI { 
+	background: url(../images/warning.png) no-repeat;
+} div.growlUI h1, div.growlUI h2 {
+	color: white;
+	font-size:9pt;
+	padding: 5px 5px 5px 60px;
+	text-align: left;
+	font-family:'Tahoma';
+}
+td.showDragHandle {
+	background-image: url(../images/drag.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor: move;
+}
+.tDnD_whileDrag {
+	background-color: #eee;
+}
+.inline {
+	display:inline-block;
+	margin-left: 20px;
+}
