@@ -11,6 +11,9 @@
  }
 
 ?>
+<style type='text/css'>
+	body { background-color:#d9d9d9; }
+</style>
 <center>
 	<form action="index.php" method="post" class='cmxform form-inline login' style='width:500px; text-align: left; '>
 	<div class='well'>
