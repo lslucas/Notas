@@ -6,7 +6,7 @@ $msg = $administrador_email_header;
 	     Olá ".$res['nome'].", agora você tem dados de acesso da administração do ".SITE_NAME.":
 
 	     <p><b>Usuário:</b> ".$res['email']."
-	     <br><b>Senha:</b> ".$form['senha']."
+	     <br><b>Senha:</b> ".$senha."
 	     <br><b>Painel de administração:</b> <a href='".SITE_URL."' target='_blank'>".SITE_URL."</a>
 
 	     <p>Lembrando que é possível alterar sua senha!</p>";
@@ -17,10 +17,19 @@ $msg = $administrador_email_header;
 	     Olá ".$res['nome'].", sua senha foi alterada!
 
 	     <p><b>Usuário:</b> ".$res['email']."
-	     <br><b>Senha:</b> ".$form['senha']." 
+	     <br><b>Senha:</b> ".$senha." 
 	     <br><b>Painel de administração:</b> <a href='".SITE_URL."' target='_blank'>".SITE_URL."</a>
 	    ";
-   }
+   } else {
+    $email_subject = SITE_NAME.": Dados alterados";
+    $msg .= "
+	     Olá ".$res['nome'].", seus dados foram atualizados!
+
+	     <p><b>Usuário:</b> ".$res['email']."
+	     <br><b>Senha:</b> ".$senha." 
+	     <br><b>Painel de administração:</b> <a href='".SITE_URL."' target='_blank'>".SITE_URL."</a>
+	    ";
+   } 
 $msg .= $administrador_email_footer;
 
 

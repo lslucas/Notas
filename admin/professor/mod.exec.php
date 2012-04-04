@@ -28,7 +28,7 @@
      #autoinsert
      include_once $rp.'inc.autoinsert.php';
 
-	 $res['tipo']='Professor';
+	 $res['tipo'] = 'Professor';
 	 $qry=false;
      $sql= "UPDATE ".TABLE_PREFIX."_${var['path']} SET
 
@@ -37,7 +37,6 @@
   		  ${var['pre']}_rg=?,
 		  ${var['pre']}_telefone=?,
 		  ${var['pre']}_celular=?,
-		  ${var['pre']}_tipo=?,
 		  ${var['pre']}_titulos=?
 	";
      $sql.=" WHERE ${var['pre']}_id=?";
@@ -46,13 +45,12 @@
 
 	 else {
 
-		 $qry->bind_param('sssssssi',
+		 $qry->bind_param('ssssssi',
 			 $res['registro'],
 			 $res['cpf'],
 			 $res['rg'],
 			 $res['telefone'],
 			 $res['celular'],
-			 $res['tipo'],
 			 $res['titulos'],
 			 $res['item']); 
 		 $qry->execute();
@@ -87,7 +85,7 @@
 		$sql_id = "SELECT adm_id item FROM ".TABLE_PREFIX."_administrador WHERE adm_n='${n}'";
 		$qry_id = $conn->query($sql_id);
 		$res_id = $qry_id->fetch_array();
-		$adm_id = $res_id['item'];
+		$adm_id = $res['adm_id'] = $res_id['item'];
 		$qry_id->close();
 
 		/*
@@ -115,6 +113,7 @@
      } else {
 
 	   $adm_id = $res['adm_id'];
+	   $senha = '[continua a mesma]';
 	   /*
 		*ALTERA NOME, EMAIL E SENHA
 		*/

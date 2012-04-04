@@ -12,15 +12,13 @@
 
 
 	//insere na tabela
-	$sql_imod = "INSERT INTO ".TABLE_PREFIX."_r_prof_atividade 
+	$sql_atv = "INSERT INTO ".TABLE_PREFIX."_r_prof_atividade 
 				   (rpa_adm_id, rpa_cat_id) VALUES (?, ?)";
-	$qry_imod = $conn->prepare($sql_imod);
+	$qry_atv = $conn->prepare($sql_atv);
 
 	for ($i=0;$i<count($_POST['atv_id']);$i++) {
-
-	  $qry_imod->bind_param("ii", $res['adm_id'], $_POST['atv_id'][$i]);
-	  $qry_imod->execute();
-
+		$qry_atv->bind_param("ii", $res['adm_id'], $_POST['atv_id'][$i]);
+		$qry_atv->execute();
 	}
 
-	$qry_imod->close();
+	$qry_atv->close();

@@ -33,6 +33,7 @@
 
   <fieldset>
     <!--<legend>Legend text</legend>-->
+<?php /*
     <div class="control-group">
       <label class="control-label" for="foto">Foto</label>
       <div class="controls">
@@ -102,6 +103,7 @@
         <p class="help-block">Se o professor tiver uma foto...</p>
       </div>
     </div>
+*/ ?>
 
     <div class="control-group">
       <label class="control-label" for="registro">Número de Registro</label>
