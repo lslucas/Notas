@@ -93,7 +93,7 @@ define('MAIL_PASS', 'noreply#');
  define('SITE_NAME','Colégio Integrado');
  $BUSINESS = 'Educator '.date('Y');
  if ($_SERVER['HTTP_HOST']=='localhost') define('SITE_URL','http://localhost/escola/public');
- else define('SITE_URL','http://lucasserafim.com.br/teste/colegiointegrado/');
+ else define('SITE_URL','http://lucasserafim.com.br/teste/colegiointegrado/public');
  //else define('SITE_URL','http://lslucas.my.phpcloud.com/escola/');
  //else define('SITE_URL','http://www.familiatetrapack.com.br/');
  $SITE_URL = SITE_URL;
