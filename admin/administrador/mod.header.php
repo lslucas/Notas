@@ -28,49 +28,31 @@ $include_js = <<<end
 
 	/* APAGA 
 	************************************/
-	$(".trash").click(function(event){
-	 event.preventDefault();
-  	 var id_trash = $(this).attr('id');
-  	 var href_trash = $(this).attr('href');
-  	 var nome_trash = $(this).attr('name');
+	$(".btn-rm").click(function(event){
+		event.preventDefault();
+		var id_rm = $(this).attr('id');
+		var href_rm = $(this).attr('href');
 
-	  $.blockUI({
-	   message: "<p>Tem certeza que deseja remover <b>"+nome_trash+"</b>?</p><br><input type='submit' value='sim' id='trash-sim'> <input type='button' value='não' id='trash-nao'>"
-	  });
-
-	// ACAO AO CLICAR EM NaO
-	     $("#trash-nao").click(function(){
-	      $.unblockUI();
-	      return false;
-	     });
-
-
-	// ACAO AO CLICAR EM SIM
-	     $("#trash-sim").click(function(){
-
+		$('.modal').modal('hide');
 		// BOX DE CARREGAMENTO
 		$.blockUI({
-		 message: "<img src='images/loading.gif'>",
-		 css: { 
-                   top:  ($(window).height()-32)/2+'px', 
-                   left: ($(window).width()-32)/2+'px', 
-		   width: '32px' 
-            	 } 
+			message: "<img src='images/loading.gif'>",
+			css: { 
+				top:  ($(window).height()-32)/2+'px', 
+				left: ($(window).width()-32)/2+'px', 
+				width: '32px' 
+			} 
 		});
 
 		$.ajax({
 			type: "POST",
-			url: href_trash,
+			url: href_rm,
 			success: function(data){
 			 $.unblockUI();
 			 $.growlUI(data);  
-			 $('#tr'+id_trash).hide();
+			 $('#tr'+id_rm).hide();
 			}
 		});
-
-	     });
-
-
 
 	});
 	/* FIM: APAGA*/

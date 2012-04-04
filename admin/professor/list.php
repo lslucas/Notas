@@ -142,8 +142,9 @@ $delete_images = "&prefix=r_${var['pre']}_galeria&pre=rpg&col=imagem&folder=${va
 
 
 $row_actions = <<<end
-<a href='?p=$p&delete&item=$id${delete_images}&noVisual' title="Clique para remover o ítem selecionado" class='tip trash' style="cursor:pointer;" id="${id}" name='$nome'>Remover</a> | <a href="?p=$p&update&item=$id" title='Clique para editar o ítem selecionado' class='tip edit'>Editar</a> | 
-<a href='?p={$p}&status&item={$id}&noVisual' title="Clique para alterar o status do ítem selecionado" class='tip status status{$id}' style="cursor:pointer;" id="{$id}" name='{$nome}'>
+<a class='tip' data-toggle='modal' href='#rm-modal{$id}' title="Clique para remover o ítem selecionado">Remover</a>
+| <a class='tip' href="?p=$p&update&item=$id" title='Clique para editar o ítem selecionado'>Editar</a>
+| <a class='tip status status$id' href='?p=$p&status&item=$id&noVisual' title="Clique para alterar o status do ítem selecionado" id="$id" name='$nome'>
 end;
 
 if ($status==1) 
@@ -153,26 +154,37 @@ else $row_actions .=  '<font color="#999999">Pendente</font>';
 $row_actions .= "</a>";$permissoes='';
 
 ?>
-      <tr id="tr<?=$id?>">
-        <td>
+	<div class="modal fade" id="rm-modal<?=$id?>">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>Remoção</h3>
+		</div>
+		<div class="modal-body">
+		<p>Deseja remover <b><?=$nome?></b>?<div class='alert alert-warning small'>Ele será removido permanentemente!</div></p>
+		</div>
+		<div class="modal-footer">
+			<a href="javascript:void(0);" class="btn" data-dismiss='modal'>Cancelar</a>
+			<a href="index.php?p=<?=$p?>&delete&item=<?=$id?>&noVisual" id='<?=$id?>' class="btn-rm btn btn-danger btn-primary">Remover</a>
+		</div>
+	</div>
+	<tr id="tr<?=$id?>">
+		<td>
 			<center>
-			  <?php 
-				$arquivofull = substr($var['path_original'],0).'/'.$imagem;
-				$arquivo = substr($var['path_thumb'],0).'/'.$imagem;
-			  ?>
-			  <a id='ima<?=$j?>' href="<?=$arquivofull?>" class="" target='_blank' style="cursor:pointer;">
-				<img src="images/lupa.gif">
-			  </a>
-			  
-			  <div id="im<?=$j?>" style="float:left;display:none">
-				  <?php 
-				if (is_file($arquivo)) 
-				  echo "<img src='{$arquivo}'>";
-
-				  else 
-				   echo 'sem foto';
-				  ?>
-			  </div>
+				<?php 
+					$arquivofull = substr($var['path_original'],0).'/'.$imagem;
+					$arquivo = substr($var['path_thumb'],0).'/'.$imagem;
+				?>
+				<a id='ima<?=$j?>' href="<?=$arquivofull?>" class="" target='_blank' style="cursor:pointer;">
+					<img src="images/lupa.gif">
+				</a>
+				<div id="im<?=$j?>" style="float:left;display:none">
+					<?php 
+						if (is_file($arquivo)) 
+							echo "<img src='{$arquivo}'>";
+						else 
+							echo 'sem foto';
+					?>
+				</div>
 			</center>
 		</td>
 		<td>
@@ -180,9 +192,13 @@ $row_actions .= "</a>";$permissoes='';
 			<br/><?=$email?>
 			<div class='row-actions muted small hide'><?=$row_actions?></div>
 		</td>
-        <td><?=$telefone?></td>
-        <td><?=$celular?></td>
-      </tr>
+		<td>
+			<?=$telefone?>
+		</td>
+		<td>
+			<?=$celular?>
+		</td>
+	</tr>
 <?php
      $j++;
     }
