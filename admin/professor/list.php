@@ -10,34 +10,37 @@
     $qry_letras->execute();
     $qry_letras->bind_result($letra);
 
+	$letras = "<div class='btn-group'>";
     if(!isset($_GET['letra']) || empty($_GET['letra'])) {
-    $letras = 'Todos - ';
+    $letras .= '<button class="btn btn-mini">Todos</button>';
     $countLetra = '';
 
     } else {
-      $letras = "<a href='?p=professor'>Todos</a> - ";
+      $letras .= "<a class='btn btn-mini' href='?p=professor'>Todos</a>";
       $countLetra = ' com a letra '.$_GET['letra'];
     }
 
 
       while($qry_letras->fetch()) {
         if(!isset($_GET['letra']) || $letra<>$_GET['letra'])
-        $letras .= "<a href='?p=professor&letra=${letra}'>";
+	        $letras .= "<a class='btn btn-mini' href='?p=professor&letra=${letra}'>";
+		else
+	        $letras .= "<a class='btn btn-mini' href='javascript:void(0);'>";
+
         $letras .= $letra;
-        if(!isset($_GET['letra']) || $letra<>$_GET['letra'])
-        $letras .= "</a>";
-        $letras .= " - ";
+        $letras .= "</a>  ";
       }
 
     $letras = substr($letras, 0, -2);
     $qry_letras->close();
 
   }
+  $letras .= "</div>";
 
 
   $where = ' WHERE 1';
   if( isset($_GET['letra']) && !empty($_GET['letra']) ) {
-    $where.= " AND cad_nome LIKE '".$_GET['letra']."%' ";
+    $where.= " AND adm_tipo='Professor' AND adm_nome LIKE '".$_GET['letra']."%' ";
   }
 
   if( isset($_GET['q']) && !empty($_GET['q']) ) {
@@ -50,9 +53,8 @@
 /*
  *busca total de itens e faz variaveis de paginação
  */
-$sql_tot = "SELECT NULL FROM ".TABLE_PREFIX."_${var['path']} $where";
+$sql_tot = "SELECT NULL FROM ".TABLE_PREFIX."_administrador $where";
 $qry_tot = $conn->query($sql_tot);
-
 $total_itens = $qry_tot->num_rows;
 $limit_end   = 30;
 $n_paginas   = ceil($total_itens/$limit_end);
@@ -76,6 +78,8 @@ $sql = "SELECT  ${var['pre']}_id,
 		${var['pre']}_status,
 		(SELECT rpg_imagem FROM ".TABLE_PREFIX."_r_${var['pre']}_galeria WHERE rpg_adm_id=prof_adm_id ORDER BY rpg_pos DESC LIMIT 1) imagem 
 		FROM ".TABLE_PREFIX."_${var['path']} 
+		INNER JOIN ".TABLE_PREFIX."_administrador
+			ON adm_id={$var['pre']}_adm_id
     $where
     ORDER BY $orderby
 
@@ -106,19 +110,29 @@ $sql = "SELECT  ${var['pre']}_id,
 <p class='header'></p>
 <div class='small' align='right'><?=$total?></div>
 
-<p>
-Filtrar por: <?=$letras?>
-</p><br/>
+<div style='display:inline-block; width:100%;'>
 
-<a href='cadastro/mod.exec_xls.php' target='_blank' class='small'>Exportar Excel</a>
-<span class='min' style='margin-left:20px;'>Ordernar por:
-<select name='orderby' id='orderby' class='min'>
-<option value='<?=$var['pre'].'_timestamp'?> ASC'<?php if($orderby==$var['pre'].'_timestamp ASC') echo ' selected';?>>Data crescente</option>
-  <option value='<?=$var['pre'].'_timestamp'?> DESC'<?php if($orderby==$var['pre'].'_timestamp DESC') echo ' selected';?>>Data decrescente</option>
-  <option value='<?=$var['pre'].'_nome'?> ASC'<?php if($orderby==$var['pre'].'_nome ASC') echo ' selected';?>>Nome crescente</option>
-  <option value='<?=$var['pre'].'_nome'?> DESC'<?php if($orderby==$var['pre'].'_nome DESC') echo ' selected';?>>Nome decrescente</option>
-</select>
-</span>
+	<div style='float:left; margin-right: 20px; width:600px;'>
+		<p class='small' style='float:left;'>
+		Filtrar por &nbsp; <?=$letras?>
+		</p>
+	</div>
+
+	<a href='cadastro/mod.exec_xls.php' target='_blank' class='btn btn-small' style='float:right; margin-left:20px;'>Exportar Excel</a>
+
+	<div class="btn-group btn-small" style='float:right; padding:0px;'>
+	  <button class="btn">Ordernar por</button>
+	  <button class="btn dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu">
+		<li><a href="?p=<?=$p.$pag.$letter?>&orderby=<?=$var['pre'].'_timestamp'?> ASC"<?php if($orderby==$var['pre'].'_timestamp ASC') echo ' selected';?>">Data Crescente</a></li>
+		<li><a href="?p=<?=$p.$pag.$letter?>&orderby=<?=$var['pre'].'_timestamp'?> DESC"<?php if($orderby==$var['pre'].'_timestamp DESC') echo ' selected';?>">Data Decrescente</a></li>
+		<li><a href="?p=<?=$p.$pag.$letter?>&orderby=<?=$var['pre'].'_nome'?> ASC"<?php if($orderby==$var['pre'].'_nome ASC') echo ' selected';?>">Nome Crescente</a></li>
+		<li><a href="?p=<?=$p.$pag.$letter?>&orderby=<?=$var['pre'].'_nome'?> DESC"<?php if($orderby==$var['pre'].'_nome DESC') echo ' selected';?>">Nome Decrescente</a></li>
+	  </ul>
+	</div>
+</div>
 
 <table class="table table-condensed table-striped">
    <thead> 

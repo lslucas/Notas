@@ -40,11 +40,6 @@ $include_js = <<<end
       $('#cpf').mask('999.999.999-99');
 
 
-   $('#orderby').change(function(){
-     window.location.href='?p={$p}{$pag}{$letter}&orderby='+$(this).val();
-   });
-
-
 	/* APAGA IMAGEM/ARQUIVO
 	************************************/
 	$(".trash-galeria").click(function(event){
