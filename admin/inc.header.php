@@ -71,7 +71,7 @@
               <ul class="dropdown-menu">
                 <li><a href='<?=$rp?>index.php/?p=<?=$user_p_update?>&update&item=<?=$_SESSION['user']['id']?>' class='tip' title='Clique para editar informações ou alterar senha'>Altualizar dados</a></li>
                 <li class="divider"></li>
-                <li><a href="<?=$rp?>index.php?act=logout">Sair</a></li>
+                <li><a href="<?=$rp?>logout.php">Sair</a></li>
               </ul>
             </li>
 			<?php 
