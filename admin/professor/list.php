@@ -164,7 +164,7 @@ $row_actions .= "</a>";$permissoes='';
 		</div>
 		<div class="modal-footer">
 			<a href="javascript:void(0);" class="btn" data-dismiss='modal'>Cancelar</a>
-			<a href="index.php?p=<?=$p?>&delete&item=<?=$id?>&noVisual" id='<?=$id?>' class="btn-rm btn btn-danger btn-primary">Remover</a>
+			<a href="index.php?p=<?=$p?>&delete&item=<?=$id?>&noVisual<?=$delete_images?>" id='<?=$id?>' class="btn-rm btn btn-danger btn-primary">Remover</a>
 		</div>
 	</div>
 	<tr id="tr<?=$id?>">
