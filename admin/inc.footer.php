@@ -24,7 +24,7 @@
 	<script src="<?=$rp?>assets/js/bootstrap-carousel.js"></script>
 	<!--<script src="<?=$rp?>assets/js/bootstrap-typeahead.js"></script>-->
 	<script src="<?=$rp?>assets/js/application.js"></script>
-	<script src="<?=$rp?>js/application.js"></script>
+	<script src="<?=$rp?>js/application.js.php"></script>
     <?php 
 	if (isset($include_js)) 
 		echo $include_js;

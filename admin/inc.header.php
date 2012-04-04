@@ -5,6 +5,11 @@
 		include_once 'inc.logout.php';
 	}
 
+	if (isset($rp))
+		$_SESSION['rp'] = $rp;
+
+	if (isset($p))
+		$_SESSION['p'] = $p;
 ?>
 <!DOCTYPE html>
 <html lang="en">
