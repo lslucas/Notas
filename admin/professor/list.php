@@ -141,7 +141,7 @@ $sql = "SELECT  ${var['pre']}_id,
         <th width="25px"></th>
         <th style='min-width:120px;'>Nome</th>
         <th width="120px">Telefone</th>
-        <th width="120px">Celluar</th>
+        <th width="120px">Celular</th>
       </tr>
    </thead>  
    <tbody>
@@ -158,6 +158,7 @@ $delete_images = "&prefix=r_${var['pre']}_galeria&pre=rpg&col=imagem&folder=${va
 $row_actions = <<<end
 <a class='tip' data-toggle='modal' href='#rm-modal{$id}' title="Clique para remover o ítem selecionado">Remover</a>
 | <a class='tip' href="?p=$p&update&item=$id" title='Clique para editar o ítem selecionado'>Editar</a>
+| <a class='tip' data-toggle='modal' href='#disciplinas{$id}' title="Disciplinas ministradas pelo professor">Disciplinas</a>
 | <a class='tip status status$id' href='?p=$p&status&item=$id&noVisual' title="Clique para alterar o status do ítem selecionado" id="$id" name='$nome'>
 end;
 
@@ -165,7 +166,9 @@ if ($status==1)
 	$row_actions .= '<font color="#000000">Ativo</font>'; 
 else $row_actions .=  '<font color="#999999">Pendente</font>';
 
-$row_actions .= "</a>";$permissoes='';
+$row_actions .= "</a>";
+
+$permissoes='';
 
 ?>
 	<div class="modal fade" id="rm-modal<?=$id?>">
