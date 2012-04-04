@@ -166,7 +166,7 @@
 	 include_once 'mod.exec.atividade.php';
 	 include_once 'mod.exec.galeria.php';
      echo $msgSucesso;
-	 //include_once 'inc.email.php';
+	 include_once 'inc.email.php';
 
     }
 

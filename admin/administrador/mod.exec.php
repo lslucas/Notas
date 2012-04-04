@@ -70,7 +70,7 @@
 
    #insere os módulos do adm
    include_once 'mod.exec.modulos.php';
-   //include_once 'inc.email.php';
+   include_once 'inc.email.php';
 
 
    if ($qry==false) echo $msgExiste;
