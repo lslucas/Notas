@@ -34,8 +34,7 @@ $include_js = <<<end
 
 
       // mascara para data
-      $('#telefone').mask('(99) 9999-9999');
-      $('#celular').mask('(99) 9999-9999');
+      $('.phone').mask('(99) 9999-9999');
       $('#cep').mask('99.999-999');
       $('#cpf').mask('999.999.999-99');
 

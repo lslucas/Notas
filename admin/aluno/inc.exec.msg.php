@@ -8,10 +8,11 @@ $nomeAcao = $act=='insert'?'incluid'.$var['genero']:'alterad'.$var['genero'];
 $msgDuplicado = <<<end
 <div class='alert alert-error'>
 	<a class="close" data-dismiss="alert">×</a>
-	Já existe $var[um] com o e-mail <b>- $res[nome] -</b>
+	Já existe $var[um] com o e-mail <b>- $res[email] -</b>
 	<br>
 	<p class='small'>
-	<a href='javascript:history.back(-1);'>Volte e preencha novamente</a>
+		<a href='javascript:history.back(-1);'>Volte e preencha novamente</a>
+	</p>
 </div>
 end;
 
@@ -28,8 +29,8 @@ end;
 $msgSucesso = <<<end
 <div class='alert alert-success'>
 	<a class="close" data-dismiss="alert">×</a>
-	Ítem $nomeAcao com êxito!
-	<br><p class='small'>
+	<b>$res[nome]</b> $nomeAcao com êxito!
+	<br/><p class='small'>
 		<a href='?p=$p&insert'>Incluir $var[novo]?</a>
 	</a>
 </div>

@@ -4,7 +4,7 @@
    $res[$chave] = $valor;
   }
 
- $sql_guarda = "SELECT ${var['pre']}_nome,${var['pre']}_status FROM ".TABLE_PREFIX."_${var['path']}";
+ $sql_guarda = "SELECT ${var['pre']}_titulo,${var['pre']}_status FROM ".TABLE_PREFIX."_${var['path']}";
  $sql_guarda.= " WHERE ${var['pre']}_id=?";
  $qry_guarda = $conn->prepare($sql_guarda);
  $qry_guarda->bind_param('i', $res['item']); 
@@ -18,7 +18,7 @@
  if ($ok) {
 
 	 $novoStatus  = $status==1?0:1;
-	 $novoStatusT = $status==1?'Bloqueado':'Ativo';
+	 $novoStatusT = $status==1?'Pendente':'Ativo';
 	 $sql_status  = "UPDATE ".TABLE_PREFIX."_${var['path']} SET ${var['pre']}_status=${novoStatus}";
 	 $sql_status .= " WHERE ${var['pre']}_id=?";
 	 $qry_status  = $conn->prepare($sql_status);

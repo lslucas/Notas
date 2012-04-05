@@ -3,27 +3,30 @@
 
 
 # CSS INCLUIDO NO inc.header.php
+//<link href="css/reset.css" rel="stylesheet" />
 $include_css = <<<end
 end;
 
 
 # JS INCLUIDO NO inc.header.php, também pode conter codigo js <script>alert();</script>
-$pag = isset($_GET['pg'])?'&pg='.$_GET['pg']:'';
-$letter = isset($_GET['letra'])?'&letra='.$_GET['letra']:'';
+/*
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tipTip.js"></script>
+*/
 $include_js = <<<end
     <script type="text/javascript" src="${rp}js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="${rp}js/jquery.tablednd.js"></script>
     <script type="text/javascript" src="${rp}js/jquery.maskedinput-1.2.2.min.js"></script>
+    <script type="text/javascript" src="${rp}js/tinymce/jscripts/tiny_mce/jquery.tinymce.js"></script>
     <script type="text/javascript" src="${rp}js/jquery.validate.min.js"></script>
     
-    
-
 <script>
   $(function(){
       // validação do formulario, todos os campos com a classe
       // class="required" serao validados
-	var container = $('completeform-error');
+	var container = $('div.container-error');
 	// validate the form when it is submitted
-	var validator = $(".form-horizontal").validate({
+	var validator = $(".form").validate({
 		errorContainer: container,
 		errorClass: 'error-validate',
 		errorLabelContainer: $("ol", container),
@@ -32,12 +35,66 @@ $include_js = <<<end
 	});
 
 
+	$('li#imagem').hide();
+	$('li#marca').hide();
 
-      // mascara para data
-      $('#telefone').mask('(99) 9999-9999');
-      $('#celular').mask('(99) 9999-9999');
-      $('#cep').mask('99.999-999');
-      $('#cpf').mask('999.999.999-99');
+	$('#area').change(function() {
+
+		var val = $('#area option:selected').val();
+		var retrn = 0;
+
+		if(val=='Marca') {
+			$('li#imagem').show();
+			$('li#marca').hide();
+			retrn = 1;
+		}
+
+		if(val=='Modelo') {
+			$('li#marca').show();
+			$('li#imagem').hide();
+			retrn = 1;
+		}
+
+
+		if(retrn==0) {
+			$('li#marca').hide();
+			$('li#imagem').hide();
+		}
+
+	}).change();
+
+
+
+      // adiciona mais um campo file a cada vez que é clicado no elemento
+      // com a classe class="addImagem"
+      $('.addImagem').click(function(){
+       var i = parseInt($('.galeria:last').attr('alt'));
+
+        $('.divImagem:first').clone().insertAfter('.divImagem:last');
+        $('.divImagem:last > .galeria').attr('name','galeria'+(i+1)).attr('alt',(i+1)).val('');
+      });
+
+
+    // ao arrastar alguma linha altera a posição dos elementos
+    // e altera na banco
+    $('#posGaleria').tableDnD({
+        onDrop: function(table, row) {
+
+	      $.ajax({
+		 type: "POST",
+		 url: "$p/inc.galeria.pos.php",
+		 data: $.tableDnD.serialize()
+	      });
+
+        }
+    });
+
+    // al passar o mouse sobre a linha add a classe para mostrar a imagem de +
+    $("#posGaleria tr").hover(function() {
+       $(this.cells[0]).addClass('showDragHandle');
+    }, function() {
+        $(this.cells[0]).removeClass('showDragHandle');
+    });
 
 
 	/* APAGA IMAGEM/ARQUIVO
@@ -65,10 +122,10 @@ $include_js = <<<end
 		$.blockUI({
 		 message: "<img src='images/loading.gif'>",
 		 css: { 
-               top:  ($(window).height()-24)/2+'px', 
-               left: ($(window).width()-24)/2+'px', 
-			   width: '24px' 
-           	 } 
+                   top:  ($(window).height()-24)/2+'px', 
+                   left: ($(window).width()-24)/2+'px', 
+		   width: '24px' 
+            	 } 
 		});
 
 		$.ajax({
@@ -76,9 +133,8 @@ $include_js = <<<end
 			url: href_trash,
 			success: function(data){
 			 $.unblockUI();
-			 $.growlUI(data);  
-			 $('#'+id_trash).hide();
-			 setTimeout(window.location.reload(), 3000);
+			 $.growlUI('Remoção',data);  
+			 $('#tr'+id_trash).hide();
 			}
 		});
 
@@ -88,6 +144,7 @@ $include_js = <<<end
 
 	});
 	/* FIM: APAGA*/
+
 
 
 
@@ -151,10 +208,10 @@ $include_js = <<<end
 			url: href_status,
 			success: function(data){
 			 $.unblockUI();
-			 $.growlUI(data);  
+			 $.growlUI('Status',data);  
 
 			 if(texto_status=='Ativo')
-			   $('.status'+id_status).html('<font color="#999999">Bloqueado</font>');
+			   $('.status'+id_status).html('<font color="#999999">Pendente</font>');
 
 			   else
 			    $('.status'+id_status).html('<font color="#000000">Ativo</font>');
@@ -166,6 +223,15 @@ $include_js = <<<end
 	/* FIM: STATUS*/
 
 
+
+	/* MOSTRA AS ACOES AO PASSAR O MOUSE SOBRE A TR DO ÍTEM DA TABELA*/
+	$('.list tr').bind('mouseenter',function(){
+	 $(this).find('.row-actions').css('visibility','visible');
+	}).bind('mouseleave',function(){
+	 $(this).find('.row-actions').css('visibility','hidden');
+	});
   });
 </script>
 end;
+
+?>

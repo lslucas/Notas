@@ -58,13 +58,12 @@
             <li class="active"><a href="<?=$rp?>index.php">Home</a></li>
 			<?php include_once 'inc.menu.php'; ?>
           </ul>
-		  <?php if (isset($_SESSION['user'])) { ?>
+		  <?php /*if (isset($_SESSION['user'])) { ?>
           <form class="navbar-search pull-left" action="">
             <input type="text" class="search-query span2" placeholder="Busca">
           </form>
-		  <?php } ?>
+		  <?php }*/ ?>
           <ul class="nav pull-right">
-            <li><a href="#">Ir para o site</a></li>
             <li class="divider-vertical"></li>
 			<?php 
 			  if (isset($_SESSION['user'])) { 

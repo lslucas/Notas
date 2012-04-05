@@ -8,7 +8,7 @@ $msg = $administrador_email_header;
 
 	     <p><b>Usuário:</b> ".$res['email']."
 	     <br><b>Senha:</b> ".$res['senha']."
-	     <br><b>Painel de administração:</b> <a href='".SITE_URL."admin/index.php' target='_blank'>".SITE_URL."admin</a>
+	     <br><b>Painel de administração:</b> <a href='".PAINEL_URL."' target='_blank'>".PAINEL_URL."</a>
 
 	     <p>Lembrando que é possível alterar sua senha!</p>";
 
@@ -20,7 +20,7 @@ $msg = $administrador_email_header;
 
 	     <p><b>Usuário:</b> ".$res['email']."
 	     <br><b>Senha:</b> continua a mesma! 
-	     <br><b>Painel de administração:</b> <a href='".SITE_URL."admin/index.php' target='_blank'>".SITE_URL."admin</a>
+	     <br><b>Painel de administração:</b> <a href='".PAINEL_URL."' target='_blank'>".PAINEL_URL."</a>
 	    ";
 
    } else {
@@ -31,7 +31,7 @@ $msg = $administrador_email_header;
 
 	     <p><b>Usuário:</b> ".$res['email']."
 	     <br><b>Senha:</b> ".$res['senha']." 
-	     <br><b>Painel de administração:</b> <a href='".SITE_URL."admin/index.php' target='_blank'>".SITE_URL."admin</a>
+	     <br><b>Painel de administração:</b> <a href='".PAINEL_URL."' target='_blank'>".PAINEL_URL."</a>
 	    ";
    }
 $msg .= $administrador_email_footer;

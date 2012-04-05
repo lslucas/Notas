@@ -4,7 +4,7 @@
    $res[$chave] = $valor;
   }
 
- $sql_guarda = "SELECT (SELECT adm_nome FROM ".TABLE_PREFIX."_administrador WHERE adm_id=prof_adm_id) prof_nome,${var['pre']}_status FROM ".TABLE_PREFIX."_${var['path']}";
+ $sql_guarda = "SELECT (SELECT adm_nome FROM ".TABLE_PREFIX."_administrador WHERE adm_id=${var['pre']}_adm_id) ${var['pre']}_nome,${var['pre']}_status FROM ".TABLE_PREFIX."_${var['path']}";
  $sql_guarda.= " WHERE ${var['pre']}_id=?";
  if (!$qry_guarda = $conn->prepare($sql_guarda))
 	 echo $conn->error;

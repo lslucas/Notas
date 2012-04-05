@@ -8,7 +8,7 @@ $nomeAcao = $act=='insert'?'incluid'.$var['genero']:'alterad'.$var['genero'];
 $msgDuplicado = <<<end
 <div class='alert alert-error'>
 	<a class="close" data-dismiss="alert">×</a>
-	Já existe $var[um] com o e-mail <b>- $res[nome] -</b>
+	Já existe $var[um] com o e-mail <b>- $res[titulo] -</b>
 	<br>
 	<p class='small'>
 	<a href='javascript:history.back(-1);'>Volte e preencha novamente</a>

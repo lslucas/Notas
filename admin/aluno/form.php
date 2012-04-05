@@ -130,40 +130,6 @@
     </div>
 
     <div class="control-group">
-      <label class="control-label" for="mod_id">* Atividade Profissional</label>
-      <div class="controls">
-	  <?php
-
-	   if ($act=='insert') {
-	    $sql_ativ = "SELECT cat_id,cat_titulo FROM ".TABLE_PREFIX."_categoria WHERE cat_status=1 AND cat_area='Atividade'";
-	    $qry_ativ = $conn->prepare($sql_ativ);
-	    $qry_ativ->bind_result($id, $titulo);
-
-	    } else {
-	     $sql_ativ = "SELECT cat_id, cat_titulo, (SELECT COUNT(rpa_adm_id) FROM ".TABLE_PREFIX."_r_prof_atividade WHERE rpa_cat_id=cat_id and rpa_adm_id=".$val['adm_id'].") checked FROM ".TABLE_PREFIX."_categoria WHERE cat_status=1 AND cat_area='Atividade'";
-		 if (!$qry_ativ = $conn->prepare($sql_ativ))
-			 echo $conn->error;
-		 else
-		    $qry_ativ->bind_result($id, $titulo, $checked);
-	   }
-
-	   $qry_ativ->execute();
-	   
-	   $i=0;
-	   while ($qry_ativ->fetch()) {
-
-	    if ($act=='update') {
-	      $check[$id] = ($checked>0)?' checked':''; 
-
-	    } else $check[$id] = '';
-
-	  ?>
-	   <label><input type='checkbox' class='required' title='Selecione ao menos um módulo' name='atv_id[]' id='atv_id' value='<?=$id?>'<?=$check[$id]?>> <?=$titulo?></label>
-	  <?php $i++;} $qry_ativ->close(); ?>
-           <p class="help-block">Selecione um ou mais módulos para que a pessoa tenha acesso</p>
-    </div>
-
-    <div class="control-group">
       <label class="control-label" for="cpf">CPF</label>
       <div class="controls">
         <input type="text" class="input-xlarge" placeholder='CPF' name='cpf' id='cpf' value='<?=$val['cpf']?>'>
@@ -182,7 +148,7 @@
     <div class="control-group">
       <label class="control-label" for="telefone">Telefone</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" placeholder='Telefone' name='telefone' id='telefone' value='<?=$val['telefone']?>'>
+        <input type="text" class="input-xlarge phone" placeholder='Telefone' name='telefone' id='telefone' value='<?=$val['telefone']?>'>
         <p class="help-block">Telefone principal ou telefone fixo</p>
       </div>
     </div>
@@ -190,62 +156,51 @@
     <div class="control-group">
       <label class="control-label" for="celular">Celular</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" placeholder='Celular' name='celular' id='celular' value='<?=$val['celular']?>'>
+        <input type="text" class="input-xlarge phone" placeholder='Celular' name='celular' id='celular' value='<?=$val['celular']?>'>
         <p class="help-block">Número de celular pessoal ou para trabalho</p>
       </div>
     </div>
-
-    <div class="control-group">
-      <label class="control-label" for="titulos">Títulos</label>
-      <div class="controls">
-        <textarea class="input-xlarge" placeholder='Títulos acadêmicos' name='titulos' id='titulos'><?=$val['titulos']?></textarea>
-        <p class="help-block">Descreva todos os títulos acadêmicos do professor</p>
-      </div>
-    </div>
-
-
-    </div>
-
   </fieldset>
 
   <fieldset>
-    <legend>Dados para Escola</legend>
+    <legend>Dados para Financeiro</legend>
     <div class="control-group">
-      <label class="control-label" for="disciplina">Disciplinas Ministradas</label>
+      <label class="control-label" for="nome_financeiro">Nome</label>
       <div class="controls">
-	  <?php
-
-	   if ($act=='insert') {
-	    $sql_disc = "SELECT cat_id,cat_titulo FROM ".TABLE_PREFIX."_categoria WHERE cat_status=1 AND cat_area='Disciplinas' ORDER BY cat_titulo";
-	    $qry_disc = $conn->prepare($sql_disc);
-	    $qry_disc->bind_result($id, $titulo);
-
-	    } else {
-	     $sql_disc = "SELECT cat_id, cat_titulo, (SELECT COUNT(rpd_adm_id) FROM ".TABLE_PREFIX."_r_prof_disciplinas WHERE rpd_cat_id=cat_id and rpd_adm_id=".$val['adm_id'].") checked FROM ".TABLE_PREFIX."_categoria WHERE cat_status=1 AND cat_area='Disciplinas' ORDER BY cat_titulo";
-		 if (!$qry_disc = $conn->prepare($sql_disc))
-			 echo $conn->error;
-		 else
-		    $qry_disc->bind_result($id, $titulo, $checked);
-	   }
-
-	   $qry_disc->execute();
-	   
-	   $i=0;
-	   while ($qry_disc->fetch()) {
-
-	    if ($act=='update') {
-	      $check[$id] = ($checked>0)?' checked':''; 
-
-	    } else $check[$id] = '';
-
-	  ?>
-	   <label><input type='checkbox' class='required' title='Selecione ao menos uma disciplina' name='disciplina[]' id='disciplina' value='<?=$id?>'<?=$check[$id]?>> <?=$titulo?></label>
-	  <?php $i++;} $qry_disc->close(); ?>
-           <p class="help-block">Selecione um ou mais displinas ministradas por esse professor</p>
+        <input type="text" class="input-xlarge" placeholder='Nome do responsável financeiro' name='nome_financeiro' id='nome_financeiro' value='<?=$val['nome_financeiro']?>'>
+        <p class="help-block">Informe o nome do responsável financeiro deste aluno</p>
+      </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label" for="turma">Turmas</label>
+      <label class="control-label" for="email_financeiro">Email</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge email" placeholder='Email do responsável financeiro' name='email_financeiro' id='email_financeiro' value='<?=$val['email_financeiro']?>'>
+        <p class="help-block">Informe um email válido</p>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="telefone_financeiro">Telefone</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge phone" placeholder='Telefone do responsável financeiro' name='telefone_financeiro' id='telefone_financeiro' value='<?=$val['telefone_financeiro']?>'>
+        <p class="help-block">Informe um telefone principal para contato</p>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="celular_financeiro">Celular</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge phone" placeholder='Celular do responsável financeiro' name='celular_financeiro' id='celular_financeiro' value='<?=$val['celular_financeiro']?>'>
+        <p class="help-block">Informe um celular para contato</p>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Dados Escolares</legend>
+    <div class="control-group">
+      <label class="control-label" for="turma">Turma</label>
       <div class="controls">
 	  <?php
 
@@ -255,7 +210,7 @@
 	    $qry_turma->bind_result($id, $titulo, $ano);
 
 	    } else {
-	     $sql_turma = "SELECT cat_id, cat_titulo, cat_ano, (SELECT COUNT(rpt_adm_id) FROM ".TABLE_PREFIX."_r_prof_turmas WHERE rpt_cat_id=cat_id and rpt_adm_id=".$val['adm_id'].") checked FROM ".TABLE_PREFIX."_categoria WHERE cat_status=1 AND cat_area='Turmas' ORDER BY cat_ano DESC, cat_titulo ASC";
+	     $sql_turma = "SELECT cat_id, cat_titulo, cat_ano, (SELECT COUNT(rat_adm_id) FROM ".TABLE_PREFIX."_r_alu_turmas WHERE rat_cat_id=cat_id and rat_adm_id=".$val['adm_id'].") checked FROM ".TABLE_PREFIX."_categoria WHERE cat_status=1 AND cat_area='Turmas' ORDER BY cat_ano DESC, cat_titulo ASC";
 		 if (!$qry_turma = $conn->prepare($sql_turma))
 			 echo $conn->error;
 		 else
@@ -275,7 +230,7 @@
 	  ?>
 	   <label><input type='checkbox' class='required' title='Selecione ao menos uma turma' name='turma[]' id='turma' value='<?=$id?>'<?=$check[$id]?>> <?=$ano.' - '.$titulo?></label>
 	  <?php $i++;} $qry_turma->close(); ?>
-           <p class="help-block">Selecione um ou mais turma ministradas por esse professor</p>
+           <p class="help-block">Selecione um ou mais turmas em que esse aluno se encontra</p>
     </div>
   </fieldset>
 

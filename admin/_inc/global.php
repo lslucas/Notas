@@ -41,14 +41,19 @@ define('MAIL_PASS', 'noreply#');
  ini_set('display_errors','On');
  
  } else {
- define('DB_SERVER','lucasserafim.db.8229398.hostedresource.com');
- define('DB_USER','lucasserafim');
- define('DB_PASS','c0d3rUNIX#');
- define('DB_DATABASE','lucasserafim');
+ define('DB_SERVER','mysql16.redehost.com.br');
+ define('DB_USER','colegiointegrado');
+ define('DB_PASS','mvdbt9NOTA');
+ define('DB_DATABASE','colegiointegrado');
 /*
+ *define('DB_SERVER','lucasserafim.db.8229398.hostedresource.com');
+ define('DB_USER','lucasserafim');
+ define('DB_PASS','c0d3r');
+ define('DB_DATABASE','lucasserafim');
+
  define('DB_SERVER','lslucas-db.my.phpcloud.com');
  define('DB_USER','lslucas');
- define('DB_PASS','c0d3rUNIX#');
+ define('DB_PASS','c0d3r');
  define('DB_DATABASE','lslucas');
  */
 
@@ -73,7 +78,7 @@ define('MAIL_PASS', 'noreply#');
  $base = $host.$path.'/';
 
  if( strpos($host, 'localhost')!=false ) ini_set('include_path', '.:/Users/lucasserafim/Sites/Zend/library.:/opt/local/lib/php');
- else ini_set('include_path', '.:/home/content/98/8229398/html/');
+ else ini_set('include_path', '.;E:\Domains\sistemaintegradocolegio.com.br\wwwroot');
 
 
 
@@ -93,9 +98,9 @@ define('MAIL_PASS', 'noreply#');
  define('SITE_NAME','Colégio Integrado');
  $BUSINESS = 'Educator '.date('Y');
  if ($_SERVER['HTTP_HOST']=='localhost') define('SITE_URL','http://localhost/escola/public');
- else define('SITE_URL','http://lucasserafim.com.br/teste/colegiointegrado/public');
+ else define('SITE_URL','http://sistemaintegradocolegio.com.br/public');
  //else define('SITE_URL','http://lslucas.my.phpcloud.com/escola/');
- //else define('SITE_URL','http://www.familiatetrapack.com.br/');
+ define('PAINEL_URL','http://sistemaintegradocolegio.com.br/notas');
  $SITE_URL = SITE_URL;
  define('RODAPE','<a href="'.SITE_URL.'">'.SITE_NAME.'</a>');
 

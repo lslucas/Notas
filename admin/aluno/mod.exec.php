@@ -10,7 +10,7 @@
 
 
  ## verifica se existe um titulo/nome/email com o mesmo nome do que esta sendo inserido
- $sql_valida = "SELECT adm_email retorno FROM ".TABLE_PREFIX."_administrador WHERE adm_email=? AND adm_tipo='Professor'";
+ $sql_valida = "SELECT adm_email retorno FROM ".TABLE_PREFIX."_administrador WHERE adm_email=? AND adm_tipo='Aluno'";
  $qry_valida = $conn->prepare($sql_valida);
  $qry_valida->bind_param('s', $res['email']); 
  $qry_valida->execute();
@@ -28,7 +28,7 @@
      #autoinsert
      include_once $rp.'inc.autoinsert.php';
 
-	 $res['tipo'] = 'Professor';
+	 $res['tipo'] = 'Aluno';
 	 $qry=false;
      $sql= "UPDATE ".TABLE_PREFIX."_${var['path']} SET
 
@@ -37,7 +37,10 @@
   		  ${var['pre']}_rg=?,
 		  ${var['pre']}_telefone=?,
 		  ${var['pre']}_celular=?,
-		  ${var['pre']}_titulos=?
+		  ${var['pre']}_nome_financeiro=?,
+		  ${var['pre']}_email_financeiro=?,
+		  ${var['pre']}_telefone_financeiro=?,
+		  ${var['pre']}_celular_financeiro=?
 	";
      $sql.=" WHERE ${var['pre']}_id=?";
 	 if (!$qry=$conn->prepare($sql))
@@ -45,13 +48,16 @@
 
 	 else {
 
-		 $qry->bind_param('ssssssi',
+		 $qry->bind_param('sssssssssi',
 			 $res['registro'],
 			 $res['cpf'],
 			 $res['rg'],
 			 $res['telefone'],
 			 $res['celular'],
-			 $res['titulos'],
+			 $res['nome_financeiro'],
+			 $res['email_financeiro'],
+			 $res['telefone_financeiro'],
+			 $res['celular_financeiro'],
 			 $res['item']); 
 		 $qry->execute();
 
@@ -164,8 +170,6 @@
 
 	 }   
 
-	 include_once 'mod.exec.atividade.php';
-	 include_once 'mod.exec.disciplinas.php';
 	 include_once 'mod.exec.turmas.php';
 	 include_once 'mod.exec.galeria.php';
      echo $msgSucesso;

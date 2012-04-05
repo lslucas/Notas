@@ -119,9 +119,6 @@
 	<?php
 	  }
 	?>
-
-    </div>
-
   </fieldset>
 
     <div class='form-actions'>

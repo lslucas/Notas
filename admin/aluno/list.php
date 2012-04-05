@@ -3,7 +3,7 @@
   /*
    *busca total de itens e faz variaveis de paginação
    */
-  $sql_letras = "SELECT UPPER(LEFT(adm_nome, 1)) FROM ".TABLE_PREFIX."_administrador WHERE adm_tipo='Professor' GROUP BY LEFT(adm_nome, 1) ORDER BY adm_nome";
+  $sql_letras = "SELECT UPPER(LEFT(adm_nome, 1)) FROM ".TABLE_PREFIX."_administrador WHERE adm_tipo='Aluno' GROUP BY LEFT(adm_nome, 1) ORDER BY adm_nome";
 
   if($qry_letras = $conn->prepare($sql_letras)) {
 
@@ -16,14 +16,14 @@
     $countLetra = '';
 
     } else {
-      $letras .= "<a class='btn btn-mini' href='?p=professor'>Todos</a>";
+      $letras .= "<a class='btn btn-mini' href='?p=aluno'>Todos</a>";
       $countLetra = ' com a letra '.$_GET['letra'];
     }
 
 
       while($qry_letras->fetch()) {
         if(!isset($_GET['letra']) || $letra<>$_GET['letra'])
-	        $letras .= "<a class='btn btn-mini' href='?p=professor&letra=${letra}'>";
+	        $letras .= "<a class='btn btn-mini' href='?p=aluno&letra=${letra}'>";
 		else
 	        $letras .= "<a class='btn btn-mini' href='javascript:void(0);'>";
 
@@ -40,12 +40,12 @@
 
   $where = ' WHERE 1';
   if( isset($_GET['letra']) && !empty($_GET['letra']) ) {
-    $where.= " AND adm_tipo='Professor' AND adm_nome LIKE '".$_GET['letra']."%' ";
+    $where.= " AND adm_tipo='Aluno' AND adm_nome LIKE '".$_GET['letra']."%' ";
   }
 
   if( isset($_GET['q']) && !empty($_GET['q']) ) {
     $where.= " AND (adm_nome LIKE '".$_GET['q']."%' ";
-    $where.= " OR prof_registro LIKE '".$_GET['q']."%' ";
+    $where.= " OR alu_registro LIKE '".$_GET['q']."%' ";
     $where.= " OR adm_email LIKE '".$_GET['q']."%' ";
 	$where.= ")";
   }
@@ -68,15 +68,15 @@ $orderby = !isset($_GET['orderby'])?$var['pre'].'_nome ASC':urldecode($_GET['ord
 
 
 $sql = "SELECT  ${var['pre']}_id,
-		(SELECT adm_nome FROM ".TABLE_PREFIX."_administrador WHERE adm_id=prof_adm_id) prof_nome,
-		(SELECT adm_email FROM ".TABLE_PREFIX."_administrador WHERE adm_id=prof_adm_id) prof_email,
+		(SELECT adm_nome FROM ".TABLE_PREFIX."_administrador WHERE adm_id=${var['pre']}_adm_id) alu_nome,
+		(SELECT adm_email FROM ".TABLE_PREFIX."_administrador WHERE adm_id=${var['pre']}_adm_id) alu_email,
 		${var['pre']}_registro,
 		${var['pre']}_nascimento,
 		${var['pre']}_cpf,
 		${var['pre']}_telefone,
 		${var['pre']}_celular,
 		${var['pre']}_status,
-		(SELECT rpg_imagem FROM ".TABLE_PREFIX."_r_${var['pre']}_galeria WHERE rpg_adm_id=prof_adm_id ORDER BY rpg_pos DESC LIMIT 1) imagem 
+		(SELECT rag_imagem FROM ".TABLE_PREFIX."_r_${var['pre']}_galeria WHERE rag_adm_id={$var['pre']}_adm_id ORDER BY rag_pos DESC LIMIT 1) imagem 
 		FROM ".TABLE_PREFIX."_${var['path']} 
 		INNER JOIN ".TABLE_PREFIX."_administrador
 			ON adm_id={$var['pre']}_adm_id
@@ -98,11 +98,11 @@ $sql = "SELECT  ${var['pre']}_id,
 
 
     switch($total_itens) {
-       case $total_itens==0: $total = 'Nenhum professor'.$countLetra;
+       case $total_itens==0: $total = 'Nenhum aluno'.$countLetra;
       break;
-       case $total_itens==1: $total = "1 professor".$countLetra;
+       case $total_itens==1: $total = "1 aluno".$countLetra;
       break;
-       default: $total = $total_itens.' professor'.$countLetra;
+       default: $total = $total_itens.' aluno'.$countLetra;
       break;
     }
 ?>
@@ -152,7 +152,7 @@ $sql = "SELECT  ${var['pre']}_id,
     while ($qry->fetch()) {
 
 
-$delete_images = "&prefix=r_${var['pre']}_galeria&pre=rpg&col=imagem&folder=${var['imagem_folderlist']}";
+$delete_images = "&prefix=r_${var['pre']}_galeria&pre=rag&col=imagem&folder=${var['imagem_folderlist']}";
 
 
 $row_actions = <<<end
@@ -163,7 +163,7 @@ end;
 
 if ($status==1) 
 	$row_actions .= '<font color="#000000">Ativo</font>'; 
-else $row_actions .=  '<font color="#999999">Pendente</font>';
+else $row_actions .=  '<font color="#999999">Bloqueado</font>';
 
 $row_actions .= "</a>";
 
@@ -235,7 +235,7 @@ $row_actions .= "</a>";
 	      $nav_nextclass = $pg_atual==$n_paginas?'unstyle ':'';
 	      $nav_nexturl   = $pg_atual==$n_paginas?'javascript:void(0)':'?pg='.($pg_atual+1).$nav_cat;
 
-        echo "<div class='spacer' style='height:30px;'></div>";
+		  echo "<div class='spacer' style='height:30px;'></div>";
 	      echo "<span style='float:left'>";
 	      echo "  <a href='${nav_nexturl}' class='${nav_nextclass}navbar more'>Mais ítens</a>";
 	      echo "</span>";
