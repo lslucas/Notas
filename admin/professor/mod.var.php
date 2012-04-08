@@ -51,41 +51,57 @@
 		'prof_status',
 		'prof_timestamp'
 	);
-    $lfield = implode(',',$field);
-    $vfield = implode(',$',$field);
-    $vfield = '$'.$vfield;
-    $vfield = explode(',',$vfield);
+	$lfield = implode(',',$field);
+	$vfield = implode(',$',$field);
+	$vfield = '$'.$vfield;
+	$vfield = explode(',',$vfield);
 
-  $qry_var->close();
+	$qry_var->close();
 
 
 
- if ($act=='update') {
+	if ($act=='update') {
 
-  $sql_form = "SELECT $lfield FROM ".TABLE_PREFIX."_${var['path']} WHERE ${var['pre']}_id=".$_GET['item'];
-  $qry_form = $conn->query($sql_form);
-  $row = $qry_form->fetch_array();
+		/*
+		 *RESGATA ID DO ALUNO
+		 */
+		if (!isset($_GET['item'])) {
 
-  $qry_form->close();
+			$adm_id = intval($_SESSION['user']['id']);
+			$sql_id = "SELECT prof_id item FROM ".TABLE_PREFIX."_professor WHERE prof_adm_id=".$adm_id;
+			$qry_id = $conn->query($sql_id);
+			$res_id = $qry_id->fetch_array();
+			$item = $_GET['item'] = $res_id['item'];
+			$qry_id->close();
 
- }
+		}
+
+		$sql_form = "SELECT $lfield FROM ".TABLE_PREFIX."_${var['path']} WHERE ${var['pre']}_id=".$_GET['item'];
+		$qry_form = $conn->query($sql_form);
+		$row = $qry_form->fetch_array();
+
+		$qry_form->close();
+
+	}
 
 
 	# DEFINE OS VALORES DE CADA CAMPO
-   for($i=0;$i<count($field);$i++) {
-    $sufix_field = str_replace($var['pre'].'_','',$field[$i]);
-    $val[$sufix_field] = isset($row[$field[$i]])?$row[$field[$i]]:'';
-   }
+	for($i=0;$i<count($field);$i++) {
+		$sufix_field = str_replace($var['pre'].'_','',$field[$i]);
+		$val[$sufix_field] = isset($row[$field[$i]])?$row[$field[$i]]:'';
+	}
 
 
- if ($act=='update') {
-  $sql_admform = "SELECT adm_nome, adm_email, adm_senha FROM ".TABLE_PREFIX."_administrador WHERE adm_tipo='Professor' AND adm_id=".$val['adm_id'];
-  $qry_admform = $conn->query($sql_admform);
-  $admrow = $qry_admform->fetch_array();
-  $qry_admform->close();
+	if ($act=='update') {
 
-  $val['nome'] = $admrow['adm_nome'];
-  $val['email'] = $admrow['adm_email'];
-  $val['senha'] = $admrow['adm_senha'];
- } else $val['nome'] = $val['email'] = $val['senha'] = null;
+		$sql_admform = "SELECT adm_nome, adm_email, adm_senha FROM ".TABLE_PREFIX."_administrador WHERE adm_tipo='Professor' AND adm_id=".$val['adm_id'];
+		$qry_admform = $conn->query($sql_admform);
+		$admrow = $qry_admform->fetch_array();
+		$qry_admform->close();
+
+		$val['nome'] = $admrow['adm_nome'];
+		$val['email'] = $admrow['adm_email'];
+		$val['senha'] = $admrow['adm_senha'];
+
+	} else $val['nome'] = $val['email'] = $val['senha'] = null;
 

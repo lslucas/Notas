@@ -68,6 +68,7 @@ $orderby = !isset($_GET['orderby'])?$var['pre'].'_nome ASC':urldecode($_GET['ord
 
 
 $sql = "SELECT  ${var['pre']}_id,
+		${var['pre']}_adm_id,
 		(SELECT adm_nome FROM ".TABLE_PREFIX."_administrador WHERE adm_id=${var['pre']}_adm_id) alu_nome,
 		(SELECT adm_email FROM ".TABLE_PREFIX."_administrador WHERE adm_id=${var['pre']}_adm_id) alu_email,
 		${var['pre']}_registro,
@@ -94,7 +95,7 @@ $sql = "SELECT  ${var['pre']}_id,
 
     #$sql->bind_param('s', $data); 
     $qry->execute();
-    $qry->bind_result($id, $nome, $email, $registro, $nascimento, $cpf, $telefone, $celular, $status, $imagem);
+    $qry->bind_result($id, $adm_id, $nome, $email, $registro, $nascimento, $cpf, $telefone, $celular, $status, $imagem);
 
 
     switch($total_itens) {
@@ -204,7 +205,7 @@ $row_actions .= "</a>";
 		<td>
 			<?=$nome?> [<?=$registro?>]
 			<br/><?=$email?>
-			<div class='row-actions muted small hide'><?=$row_actions?></div>
+			<div class='row-actions muted small'><?=$row_actions?></div>
 		</td>
 		<td>
 			<?=$telefone?>
@@ -263,10 +264,6 @@ $row_actions .= "</a>";
 	    echo "</span>";
 	  ?>
 	</div>
-
-
-
-
 <?php
 
   }

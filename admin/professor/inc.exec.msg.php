@@ -32,6 +32,14 @@ $msgSucesso = <<<end
 	<b>$res[nome]</b> $nomeAcao com êxito!
 	<br/><p class='small'>
 		<a href='?p=$p&insert'>Incluir $var[novo]?</a>
-	</a>
+	</p>
+</div>
+end;
+
+# sucesso professor
+$msgProfessorSucesso = <<<end
+<div class='alert alert-success'>
+	<a class="close" data-dismiss="alert">×</a>
+	<b>$res[nome]</b> seus dados foram atualizados com êxito!
 </div>
 end;

@@ -8,7 +8,7 @@
  include_once 'inc.exec.msg.php';
 
 
- $sql_valida = "SELECT ${var['pre']}_nome,${var['pre']}_email FROM ".TABLE_PREFIX."_${var['path']} WHERE ${var['pre']}_email=? AND {$var['pre']}_tipo='Administrador'";
+ $sql_valida = "SELECT ${var['pre']}_nome,${var['pre']}_email FROM ".TABLE_PREFIX."_${var['path']} WHERE ${var['pre']}_email=?";
  $qry_valida = $conn->prepare($sql_valida);
  $qry_valida->bind_param('s', $res['email']); 
  $qry_valida->execute();

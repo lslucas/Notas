@@ -10,6 +10,12 @@
 .color-inative, .silver {
 	color:#CCC !important;
 }
+.hero-unit {
+	padding:0;
+}
+.hero-unit h1 {
+	font-size:40px;
+}
 div.growlUI { 
 	background: url(../images/warning.png) no-repeat;
 } div.growlUI h1, div.growlUI h2 {
@@ -32,3 +38,36 @@ td.showDragHandle {
 	display:inline-block;
 	margin-left: 20px;
 }
+.input-nano {
+	width: 30px !important;
+}
+/*
+.navbar {
+	width: 100%;
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	z-index: 1000;
+}
+	*/
+.column-container {
+	/*margin-top: 60px;*/
+}
+.control-group.info input,
+.control-group.info select,
+.control-group.info textarea {
+  color: #3a87ad;
+  border-color: #3a87ad;
+}
+.print {
+	display:none;
+}
+@media print {
+	.no-print {
+		display:none;
+	}
+	.print {
+		display:inline;
+	}
+}
+

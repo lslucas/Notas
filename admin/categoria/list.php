@@ -166,7 +166,7 @@ $row_actions .= "</a>";
 		</td>
 		<td>
 			<?=$marca.$nome?>
-			<div class='row-actions muted small hide inline'><?=$row_actions?></div>
+			<div class='row-actions muted small inline'><?=$row_actions?></div>
 		</td>
 	</tr>
 <?php

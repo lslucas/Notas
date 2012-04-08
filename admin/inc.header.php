@@ -42,51 +42,50 @@
 		echo $include_css;
     ?>
   </head>
+  <body>
+	<div class="navbar no-print">
+		<div class="navbar-inner">
+		  <div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			</a>
+			<a class="brand" href="<?=$rp?>index.php"><?=SITE_NAME?></a>
+			<div class="nav-collapse">
+			  <ul class="nav">
+				<li<?=!isset($p) || empty($p) ? ' class="active"' : null?>><a href="<?=$rp?>index.php">Home</a></li>
+				<?php include_once 'inc.menu.php'; ?>
+			  </ul>
+			  <?php /*if (isset($_SESSION['user'])) { ?>
+			  <form class="navbar-search pull-left" action="">
+				<input type="text" class="search-query span2" placeholder="Busca">
+			  </form>
+			  <?php }*/ ?>
+			  <ul class="nav pull-right">
+				<li class="divider-vertical"></li>
+				<?php 
+				  if (isset($_SESSION['user'])) { 
+					$user_p_update = strtolower($_SESSION['user']['tipo']);
+				?>
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['user']['nome']?> <b class="caret"></b></a>
+				  <ul class="dropdown-menu">
+					<li><a href='<?=$rp?>index.php?p=<?=$user_p_update?>&update' class='tip' title='Clique para editar informações de cadastro'>Altualizar dados</a></li>
+					<li><a href='<?=$rp?>index.php?p=<?=$user_p_update?>&alterasenha' class='tip' title='Clique para alterar a senha'>Alterar senha</a></li>
+					<li class="divider"></li>
+					<li><a href="<?=$rp?>logout.php">Sair</a></li>
+				  </ul>
+				</li>
+				<?php 
 
-  <body data-spy="scroll" data-target=".subnav" data-offset="50">
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-		<a class="brand" href="<?=$rp?>index.php"><?=SITE_NAME?></a>
-        <div class="nav-collapse">
-          <ul class="nav">
-            <li class="active"><a href="<?=$rp?>index.php">Home</a></li>
-			<?php include_once 'inc.menu.php'; ?>
-          </ul>
-		  <?php /*if (isset($_SESSION['user'])) { ?>
-          <form class="navbar-search pull-left" action="">
-            <input type="text" class="search-query span2" placeholder="Busca">
-          </form>
-		  <?php }*/ ?>
-          <ul class="nav pull-right">
-            <li class="divider-vertical"></li>
-			<?php 
-			  if (isset($_SESSION['user'])) { 
-
-				$user_p_update = empty($_SESSION['user']['tipo'])?'administrador':'usuario';
-			?>
-            <li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['user']['nome']?> <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href='<?=$rp?>index.php/?p=<?=$user_p_update?>&update&item=<?=$_SESSION['user']['id']?>' class='tip' title='Clique para editar informações ou alterar senha'>Altualizar dados</a></li>
-                <li class="divider"></li>
-                <li><a href="<?=$rp?>logout.php">Sair</a></li>
-              </ul>
-            </li>
-			<?php 
-
-				}
-			?>
-          </ul>
-        </div><!-- /.nav-collapse -->
-      </div>
-    </div><!-- /navbar-inner -->
-  </div>
+					}
+				?>
+			  </ul>
+			</div><!-- /.nav-collapse -->
+		  </div>
+		</div><!-- /navbar-inner -->
+	</div>
 
 	<center>
-	<div class="span14 nospan">
+	<div class="span14 nospan column-container">

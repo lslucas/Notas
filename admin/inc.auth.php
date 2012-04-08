@@ -9,11 +9,11 @@
 		$hash = md5($_POST['password']);
 
 
-		$sql_var = "SELECT adm_id,adm_nome,adm_email,adm_senha FROM ".TABLE_PREFIX."_administrador WHERE adm_status=1 AND adm_email=?";
+		$sql_var = "SELECT adm_id, adm_nome, adm_email, adm_tipo, adm_senha FROM ".TABLE_PREFIX."_administrador WHERE adm_status=1 AND adm_email=?";
 		$qry_var = $conn->prepare($sql_var);
 		$qry_var->bind_param('s',$user);
 		$qry_var->execute();
-		$qry_var->bind_result($aid,$anome,$aemail,$asenha);
+		$qry_var->bind_result($aid, $anome, $aemail, $atipo, $asenha);
 		$qry_var->fetch();
 		$qry_var->close();
 
@@ -42,6 +42,7 @@
 				    'nome' => $anome,
 				    'email' => $aemail,
 				    'senha' => $asenha,
+				    'tipo' => $atipo,
 				    'ip' => $_SERVER['REMOTE_ADDR'],
 				    'host' => gethostbyaddr($_SERVER['REMOTE_ADDR']),
 				    'useragent' => $_SERVER['HTTP_USER_AGENT']
@@ -78,7 +79,7 @@
 
 
 
-			if (isset($p) && !empty($p) && !isset($err)) {
+			if (isset($p) && !empty($p) && $p!='esqueci-senha' && !isset($_GET['esqueci-senha']) && !isset($err)) {
 
 				$sql_cat = "SELECT null,mod_id
 						FROM ".TABLE_PREFIX."_r_adm_mod 
@@ -108,26 +109,9 @@
 
 
 
-/*
-	 if ( $sess->isSetVar('adm_email') && basename($_SERVER['PHP_SELF'])<>'index.php') 
-		die(header("Location: ".$rp."index.php"));
-
-  if (basename($_SERVER['PHP_SELF'])=='index.php' && $sess->isSetVar('adm_email'))
- 	  header("Location: ".$rp."principal.php");
-
-*/		
 
 		# funcao de login
 		hasAccess();
 		logquery();
-/*
-	       if (isset($msgError)) {
-		 if (basename($_SERVER['PHP_SELF'])<>'index.php' || basename($_SERVER['PHP_SELF'])=='index.php' && !isset($_GET['act'])){
-		   die(header("Location: ".$rp."index.php?act=err"));
-		 }
-		}
-*/
-
 
  }
-?>

@@ -71,7 +71,7 @@ $row_actions .= '</a>';
 	<tr id="tr<?=$id?>">
 		<td>
 			<?=$nome?>
-			<div class='row-actions muted small hide'><?=$row_actions?></div>
+			<div class='row-actions muted small'><?=$row_actions?></div>
 		</td>
 		<td>
 			<?=$email?>

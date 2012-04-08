@@ -37,6 +37,7 @@
 
 			<div class='form-actions'>
 				<input type='submit' value='Login' class='btn btn-primary'>
+				<a href='esqueci-senha.php' value='Esqueci minha senha' class='btn'>Esqueci a senha</a>
 			</div>
 	</div>
 	</form>

@@ -3,12 +3,12 @@
    $res[$chave] = $valor;
   }
 
- $sql_guarda = "SELECT (SELECT adm_nome FROM ".TABLE_PREFIX."_administrador WHERE adm_id=prof_adm_id) prof_nome FROM ".TABLE_PREFIX."_${var['path']} WHERE ${var['pre']}_id=?";
+ $sql_guarda = "SELECT (SELECT adm_nome FROM ".TABLE_PREFIX."_administrador WHERE adm_id=prof_adm_id) prof_nome, prof_adm_id FROM ".TABLE_PREFIX."_${var['path']} WHERE ${var['pre']}_id=?";
  $qry_guarda = $conn->prepare($sql_guarda);
  $qry_guarda->bind_param('i', $res['item']); 
  $ok = $qry_guarda->execute()?true:false;
  $num = $qry_guarda->num_rows();
- $qry_guarda->bind_result($nome); 
+ $qry_guarda->bind_result($nome, $adm_id); 
  $qry_guarda->fetch(); 
  $qry_guarda->close();
 
@@ -50,6 +50,13 @@
 	      
  	if (file_exists($var['path'].'/mod.arquivo.delete.php')) 
 	 include_once $var['path'].'/mod.arquivo.delete.php';
+
+ 	if (file_exists($var['path'].'/mod.administrador.delete.php')) 
+	 include_once $var['path'].'/mod.administrador.delete.php';
+
+ 	if (file_exists($var['path'].'/mod.r_adm_mod.delete.php')) 
+	 include_once $var['path'].'/mod.r_adm_mod.delete.php';
+
 
 
 

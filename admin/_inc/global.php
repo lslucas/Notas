@@ -7,7 +7,8 @@
 
 # EMAILS
 ########
- define('EMAIL','teste@lucaserafim.com.br');
+
+ define('EMAIL','no-reply@sistemaintegradocolegio.com.br');
  define('EMAIL_NAME','Colégio Integrado');
  define('BBC1_EMAIL','teste@lucasserafim.com.br');
  define('BBC2_EMAIL','');
@@ -21,12 +22,12 @@
 
 # EMAIL SERVER
 ##############
-define('MAIL_HOST', 'smtp.gmail.com');
+define('MAIL_HOST', 'mail.sistemaintegradocolegio.com.br');
 define('MAIL_SMTPAUTH', 'login');
-define('MAIL_SMTPSECURE', 'tls');
-define('MAIL_PORT', 587);
-define('MAIL_USER', 'no-reply@lucasserafim.com.br');
-define('MAIL_PASS', 'noreply#');
+define('MAIL_SMTPSECURE', null);
+define('MAIL_PORT', 25);
+define('MAIL_USER', 'no-reply@sistemaintegradocolegio.com.br');
+define('MAIL_PASS', 'integrado123');
 
 # CONEXAO COM DB
 ################
@@ -96,11 +97,12 @@ define('MAIL_PASS', 'noreply#');
 ###################
 
  define('SITE_NAME','Colégio Integrado');
- $BUSINESS = 'Educator '.date('Y');
+ $BUSINESS = '<p>&copy; Educator '.date('Y').'</p>';
+ $BUSINESS = null;
  if ($_SERVER['HTTP_HOST']=='localhost') define('SITE_URL','http://localhost/escola/public');
- else define('SITE_URL','http://sistemaintegradocolegio.com.br/public');
+ else define('SITE_URL','http://sistemaintegradocolegio.com.br');
  //else define('SITE_URL','http://lslucas.my.phpcloud.com/escola/');
- define('PAINEL_URL','http://sistemaintegradocolegio.com.br/notas');
+ define('PAINEL_URL','http://notas.sistemaintegradocolegio.com.br');
  $SITE_URL = SITE_URL;
  define('RODAPE','<a href="'.SITE_URL.'">'.SITE_NAME.'</a>');
 
@@ -247,5 +249,6 @@ $administrador_email_footer = <<<end
 </div>
 </body>
 </html>
-
 end;
+$user_email_header = $administrador_email_header;
+$user_email_footer = $administrador_email_footer;

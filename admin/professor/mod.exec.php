@@ -10,7 +10,7 @@
 
 
  ## verifica se existe um titulo/nome/email com o mesmo nome do que esta sendo inserido
- $sql_valida = "SELECT adm_email retorno FROM ".TABLE_PREFIX."_administrador WHERE adm_email=? AND adm_tipo='Professor'";
+ $sql_valida = "SELECT adm_email retorno FROM ".TABLE_PREFIX."_administrador WHERE adm_email=?";
  $qry_valida = $conn->prepare($sql_valida);
  $qry_valida->bind_param('s', $res['email']); 
  $qry_valida->execute();
@@ -27,6 +27,9 @@
 
      #autoinsert
      include_once $rp.'inc.autoinsert.php';
+
+	 //adiciona módulo de alunos
+	 $_POST['mod_id'][] = 9;
 
 	 $res['tipo'] = 'Professor';
 	 $qry=false;
@@ -164,16 +167,24 @@
 
 	 }   
 
-	 include_once 'mod.exec.atividade.php';
-	 include_once 'mod.exec.disciplinas.php';
-	 include_once 'mod.exec.turmas.php';
-	 include_once 'mod.exec.galeria.php';
-     echo $msgSucesso;
-	 include_once 'inc.email.php';
+	include_once 'mod.exec.atividade.php';
+	include_once 'mod.exec.disciplinas.php';
+	include_once 'mod.exec.turmas.php';
+	include_once 'mod.exec.modulos.php';
+	include_once 'mod.exec.galeria.php';
+
+	if ($_SESSION['user']['tipo']=='Professor')
+		echo $msgProfessorSucesso;
+	else
+		echo $msgSucesso;
+	include_once 'inc.email.php';
 
     }
 
  }
 
 // mostra listagem
-include_once 'list.php';
+if ($_SESSION['user']['tipo']=='Professor')
+	include_once 'form.php';
+else
+	include_once 'list.php';

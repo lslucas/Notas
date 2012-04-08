@@ -33,10 +33,30 @@ $include_js = <<<end
 
 
 
-      // mascara para data
-      $('.phone').mask('(99) 9999-9999');
-      $('#cep').mask('99.999-999');
-      $('#cpf').mask('999.999.999-99');
+	//tabs das notas
+	$('a[data-toggle="tab"]').on('shown', function (e) {
+		var id     = $(this).attr('id');
+		var target = $(this).attr('href');
+
+		$('.temporary').hide();
+		$('.loading').show();
+		$.ajax({
+			type: "POST",
+			url: '{$p}/ajax.form.notas.php',
+			data: 'idturma='+id,
+			success: function(data){
+				$('.loading').hide();
+				$(target).html(data);
+			}
+		});
+
+	})
+
+
+	// mascara para data
+	$('.phone').mask('(99) 9999-9999');
+	$('#cep').mask('99.999-999');
+	$('#cpf').mask('999.999.999-99');
 
 
 	/* APAGA IMAGEM/ARQUIVO

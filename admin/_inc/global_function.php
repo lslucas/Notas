@@ -1,4 +1,57 @@
 <?php
+
+/*
+ *retorna array com todas as disciplinas
+ */
+function getListDisciplinas()
+{
+	global $conn;
+	/*
+	 *query da disciplina
+	 */
+	$sqld = "SELECT 
+				cat_id,
+				cat_titulo
+
+			FROM ".TABLE_PREFIX."_categoria
+			WHERE cat_status=1 AND cat_area='Disciplinas'
+			ORDER BY cat_titulo";
+
+	$disciplina = array();
+	if(!$qryd = $conn->prepare($sqld))
+		echo divAlert($conn->error, 'error');
+
+	else {
+
+		$qryd->execute();
+		$qryd->bind_result($id, $titulo);
+
+		while ($qryd->fetch())
+			$disciplina[$id] = $titulo;
+
+		$qryd->close();
+
+
+	}
+
+	return $disciplina;
+}
+
+/*
+ *mostra mensagens de erro com css
+ */
+function divAlert($msg, $type='error')
+{
+
+	$alert = "<div class='alert alert-{$type}'>";
+	$alert.= "<a class='close' data-dismiss='alert'>×</a>";
+	$alert.= $msg;
+	$alert.= "</div>";
+
+	return $alert;
+}
+
+
 //-----------------------------------------------------
 //Funcao: validaCNPJ($cnpj)
 //Sinopse: Verifica se o valor passado é um CNPJ válido

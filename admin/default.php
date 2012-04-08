@@ -1,40 +1,44 @@
-	<div class="hero-unit">
+<?php
+
+	include_once 'helper/default.php';
+
+?>
+<style type='text/css'>
+	body {
+		background-image: url('<?=SITE_URL?>/public/images/bg/colegiointegrado-transp.png');
+		background-position: 340px 100px;
+		background-repeat: no-repeat;
+	}
+</style>
+	<div class="hero-unit no-print">
 		<h1>Bem-vindo(a) <b><?=$_SESSION['user']['nome']?></b>!</h1>
-		<p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-		<p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+		<!--
+		<p>Lorem ipsum.</p>
+		<p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>-->
 	</div>
 
+	<?php if (!empty($minhasnotas)) { ?>
 	<div class="row-fluid">
-		<div class="span4">
-		  <h2>Heading</h2>
-		  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		  <p><a class="btn" href="#">View details &raquo;</a></p>
+		<div class="span13">
+			<h2>Minhas Notas</h2>
+			<div class='print'>
+				<b><?=$arrAluno['nome']?></b>
+				<br/><span class='label'><?=$arrAluno['registro']?></span>
+			</div>
+			<?=$minhasnotas?>
+			<p align='right' class='no-print'>
+				<a href='javascript:window.print();' class='btn'><i class='icon-print'></i> Imprimir Notas</a>
+			</p>
 		</div><!--/span-->
-		<div class="span4">
-		  <h2>Heading</h2>
-		  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		  <p><a class="btn" href="#">View details &raquo;</a></p>
+	</div><!--/fluid-->
+	<?php } ?>
+
+
+	<div class="row-fluid no-print">
+		<?php if (!empty($meusprofessores)) { ?>
+		<div class="span8">
+			<h2>Professores</h2>
+			<?=$meusprofessores?>
 		</div><!--/span-->
-		<div class="span4">
-		  <h2>Heading</h2>
-		  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		  <p><a class="btn" href="#">View details &raquo;</a></p>
-		</div><!--/span-->
-		</div><!--/row-->
-		<div class="row-fluid">
-		<div class="span4">
-		  <h2>Heading</h2>
-		  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		  <p><a class="btn" href="#">View details &raquo;</a></p>
-		</div><!--/span-->
-		<div class="span4">
-		  <h2>Heading</h2>
-		  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		  <p><a class="btn" href="#">View details &raquo;</a></p>
-		</div><!--/span-->
-		<div class="span4">
-		  <h2>Heading</h2>
-		  <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		  <p><a class="btn" href="#">View details &raquo;</a></p>
-		</div><!--/span-->
+		<?php } ?>
 	</div><!--/row-->

@@ -108,7 +108,8 @@
     <div class="control-group">
       <label class="control-label" for="registro">Número de Registro</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" placeholder='registro' name='registro' id='nome' value='<?=$val['registro']?>'>
+        <input type="text" class="input-xlarge"<?=$_SESSION['user']['tipo']<>'Administrador'?' disabled':null?> placeholder='registro' name='registro' id='nome' value='<?=$val['registro']?>'>
+		<?=$_SESSION['user']['tipo']<>'Administrador'?' <input type="hidden" name="registro" value="'.$val['registro'].'"/>':null?>
         <p class="help-block">Número de registro para identificação</p>
       </div>
     </div>

@@ -59,23 +59,25 @@ if (isset($ap)) {
 if ($noVisual==0)
  include_once 'inc.header.php';
 
-
 # CHAMA CONTEUDO
  switch(true) {
   case isset($_SESSION['user']) && empty($p):
     include_once 'default.php';
-
  break;
+
+  case (!isset($_SESSION['user']) || $_SESSION['user']['id']==null) && $p=='esqueci-senha':
+    include_once 'esqueci-senha.php';
+ break;
+
   case !empty($ap):
     $inc_default = $ap.'default.php';
     if (is_file($inc_default))
       include_once $inc_default;
-
  break;
+
   default:
    include_once 'login.php';
    $noFooter=1;
-
  break;
  }
 

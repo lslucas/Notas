@@ -24,7 +24,8 @@ if (isset($_SESSION['user'])) {
 	  $sql_menu_pai = "SELECT men_id,
 				  men_nome,
 				  men_link,
-				  (SELECT mod_nome FROM ".TABLE_PREFIX."_modulo WHERE mod_id=men_modulo_id) modulo_nome 
+				  (SELECT mod_nome FROM ".TABLE_PREFIX."_modulo WHERE mod_id=men_modulo_id) modulo_nome,
+				  (SELECT mod_path FROM ".TABLE_PREFIX."_modulo WHERE mod_id=men_modulo_id) path 
 
 				FROM ".TABLE_PREFIX."_menu 
 				WHERE men_nivel=".$nivel['men_nivel']." 
@@ -44,7 +45,7 @@ if (isset($_SESSION['user'])) {
 		while ($row=$qry_menu_pai->fetch_assoc()){
 
 
-		  $sql_menu_filho = "SELECT men_nome,men_link FROM ".TABLE_PREFIX."_menu WHERE men_pai=".$row['men_id'].' ORDER BY men_nome';
+		  $sql_menu_filho = "SELECT men_modulo_id, men_nome, men_link, men_nivel FROM ".TABLE_PREFIX."_menu WHERE men_pai=".$row['men_id'].' ORDER BY men_nome';
 		  $qry_menu_filho = $conn->query($sql_menu_filho);
 		  $class_menu=$has_submenu='';
 
@@ -70,20 +71,33 @@ if (isset($_SESSION['user'])) {
 		/*
 		 *html
 		 */
-		if ($qry_menu_filho->num_rows==0)
-			echo "\n\t\t<li>{$menu_pai}</li>";
+		if ($qry_menu_filho->num_rows==0) {
+			$active = isset($p) && $p==$row['path'] ? ' class="active"' : null;
+			echo "\n\t\t<li{$active}>{$menu_pai}</li>";
 
-		else {
+		} else {
 
-			echo "\n\t\t<li class='dropdown'>{$menu_pai}";
+			$active = isset($p) && $p==$row['path'] ? ' active' : null;
+			echo "\n\t\t<li class='dropdown{$active}'>{$menu_pai}";
 			echo "\n\t\t<ul class='dropdown-menu'>";
 
+			$_tmpf = null;
 			while ($row_filho = $qry_menu_filho->fetch_assoc()){
 				//<li class="divider"></li>
 				//<li class="nav-header">Nav header</li>
-				echo "\n\t\t\t<li><a href='{$row_filho['men_link']}'>{$row_filho['men_nome']}</a></li>";
+				$pos = $row_filho['men_nivel'];
+				$mid = $row_filho['men_modulo_id'];
+				//if ($row_filho['men_nome']=='Lançamento de Notas') {
+					//$_tmpf.= "<li class='divider'></li>";
+					//$_tmpf.= "<li class='nav-header'>Notas</li>";
+					//$_tmpf.= "\n\t\t\t<li><a href='{$row_filho['men_link']}'>{$row_filho['men_nome']}</a></li>";
+
+				//} else
+					$_tmpf.= "\n\t\t\t<li><a href='{$row_filho['men_link']}'>{$row_filho['men_nome']}</a></li>";
+
 			}
 
+			echo $_tmpf;;
 			echo "\n\t\t</ul>";
 
 		}

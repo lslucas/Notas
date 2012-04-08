@@ -10,7 +10,7 @@
 
 
  ## verifica se existe um titulo/nome/email com o mesmo nome do que esta sendo inserido
- $sql_valida = "SELECT adm_email retorno FROM ".TABLE_PREFIX."_administrador WHERE adm_email=? AND adm_tipo='Aluno'";
+ $sql_valida = "SELECT adm_email retorno FROM ".TABLE_PREFIX."_administrador WHERE adm_email=?";
  $qry_valida = $conn->prepare($sql_valida);
  $qry_valida->bind_param('s', $res['email']); 
  $qry_valida->execute();
@@ -170,14 +170,22 @@
 
 	 }   
 
-	 include_once 'mod.exec.turmas.php';
-	 include_once 'mod.exec.galeria.php';
-     echo $msgSucesso;
-	 include_once 'inc.email.php';
+	include_once 'mod.exec.turmas.php';
+	include_once 'mod.exec.galeria.php';
+
+	if ($_SESSION['user']['tipo']=='Aluno')
+		echo $msgAlunoSucesso;
+	else
+		echo $msgSucesso;
+
+	include_once 'inc.email.php';
 
     }
 
  }
 
 // mostra listagem
-include_once 'list.php';
+if ($_SESSION['user']['tipo']=='Aluno')
+	include_once 'form.php';
+else
+	include_once 'list.php';

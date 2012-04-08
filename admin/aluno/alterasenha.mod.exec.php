@@ -13,9 +13,9 @@ else {
 	if (md5($res['senha_atual'])==$_SESSION['user']['senha'] && $res['senha']==$res['confirma_senha']) {
 
 		$res['nova_senha']=md5($res['senha']);
-		$sql= "UPDATE ".TABLE_PREFIX."_${var['path']} SET
-		  ${var['pre']}_senha=?";
-		$sql.=" WHERE ${var['pre']}_id=?";
+		$sql= "UPDATE ".TABLE_PREFIX."_administrador SET
+		  adm_senha=?";
+		$sql.=" WHERE adm_id=?";
 
 		if ($qry=$conn->prepare($sql)) {
 
@@ -28,6 +28,7 @@ else {
 				# define nome e email para enviar ao include de email
 				$res['email'] = $_SESSION['user']['email'];
 				$res['nome']  = $_SESSION['user']['nome'];
+				$senha		  = $res['senha'];
 
 				echo divAlert('Sua senha foi alterada!', 'success');
 				include_once 'inc.email.php';

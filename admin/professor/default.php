@@ -10,5 +10,7 @@ elseif (isset($_GET['delete_galeria']))
 	include_once 'mod.galeria.delete.php';
 elseif (isset($_GET['status']))
 	include_once 'mod.status.php';
+elseif (isset($_GET['alterasenha']))
+	include_once 'alterasenha.form.php';
 else 
 	include_once 'list.php';

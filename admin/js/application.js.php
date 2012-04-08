@@ -1,8 +1,9 @@
 <?php
 	session_start();
+	header('Content-type: text/javascript');
 ?>
 $(function(){
-	$('.tip').tooltip();
+	$('.tip').tooltip({animation: true, placement: 'bottom', delay: { show: 500, hide: 100 }});
 	$(".alert").alert();
 	//$('.tabs').button();
 	//$(".collapse").collapse();
@@ -16,6 +17,7 @@ $(function(){
 
 
 	/* MOSTRA AS ACOES AO PASSAR O MOUSE SOBRE A TR DO ÍTEM DA TABELA*/
+	/*
 	if ($('.table')) {
 		$('.table').find('.row-actions').hide();
 		$('.table tr').bind('mouseenter',function(){
@@ -24,6 +26,7 @@ $(function(){
 			$(this).find('.row-actions').hide();
 		});
 	}
+	*/
 
 
 });

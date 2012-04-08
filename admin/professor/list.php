@@ -68,6 +68,7 @@ $orderby = !isset($_GET['orderby'])?$var['pre'].'_nome ASC':urldecode($_GET['ord
 
 
 $sql = "SELECT  ${var['pre']}_id,
+		${var['pre']}_adm_id,
 		(SELECT adm_nome FROM ".TABLE_PREFIX."_administrador WHERE adm_id=prof_adm_id) prof_nome,
 		(SELECT adm_email FROM ".TABLE_PREFIX."_administrador WHERE adm_id=prof_adm_id) prof_email,
 		${var['pre']}_registro,
@@ -86,7 +87,6 @@ $sql = "SELECT  ${var['pre']}_id,
     LIMIT $limit_start,$limit_end
     ";
 
-
  if (!$qry = $conn->prepare($sql)) {
   echo 'Houve algum erro durante a execução da consulta<p class="code">'.$sql.'</p><hr>';
 
@@ -94,7 +94,7 @@ $sql = "SELECT  ${var['pre']}_id,
 
     #$sql->bind_param('s', $data); 
     $qry->execute();
-    $qry->bind_result($id, $nome, $email, $registro, $nascimento, $cpf, $telefone, $celular, $status, $imagem);
+    $qry->bind_result($id, $adm_id, $nome, $email, $registro, $nascimento, $cpf, $telefone, $celular, $status, $imagem);
 
 
     switch($total_itens) {
@@ -204,7 +204,7 @@ $row_actions .= "</a>";
 		<td>
 			<?=$nome?> [<?=$registro?>]
 			<br/><?=$email?>
-			<div class='row-actions muted small hide'><?=$row_actions?></div>
+			<div class='row-actions muted small'><?=$row_actions?></div>
 		</td>
 		<td>
 			<?=$telefone?>

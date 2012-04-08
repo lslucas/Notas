@@ -64,12 +64,25 @@
 
 
  if ($act=='update') {
+	/*
+	 *RESGATA ID DO ALUNO
+	 */
+	if (!isset($_GET['item'])) {
 
-  $sql_form = "SELECT $lfield FROM ".TABLE_PREFIX."_${var['path']} WHERE ${var['pre']}_id=".$_GET['item'];
-  $qry_form = $conn->query($sql_form);
-  $row = $qry_form->fetch_array();
+		$adm_id = intval($_SESSION['user']['id']);
+		$sql_id = "SELECT alu_id item FROM ".TABLE_PREFIX."_aluno WHERE alu_adm_id=".$adm_id;
+		$qry_id = $conn->query($sql_id);
+		$res_id = $qry_id->fetch_array();
+		$item = $_GET['item'] = $res_id['item'];
+		$qry_id->close();
 
-  $qry_form->close();
+	}
+
+	$sql_form = "SELECT $lfield FROM ".TABLE_PREFIX."_${var['path']} WHERE ${var['pre']}_id=".$_GET['item'];
+	$qry_form = $conn->query($sql_form);
+	$row = $qry_form->fetch_array();
+
+	$qry_form->close();
 
  }
 

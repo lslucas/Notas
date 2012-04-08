@@ -49,7 +49,7 @@ $permissoes='';
       <tr id="tr<?=$id?>">
         <td><input type='checkbox' name='check' value='1'></td>
         <td><?=$pre?></td>
-        <td><?=$nome?><div class='row-actions muted small hide inline'><?=$row_actions?></div></td>
+        <td><?=$nome?><div class='row-actions muted small inline'><?=$row_actions?></div></td>
         <td><?=$path?></td>
         <td><?=$permissoes?></td>
         <td align='center'><a href='?p=<?=$p?>&status&item=<?=$id?>&noVisual' title="Clique para alterar o status do ítem selecionado" class='tip status status<?=$id?>' style="cursor:pointer;" id="<?=$id?>" name='<?=$nome?>'><?php if ($status==1) echo'<font color="#000000">Ativo</font>'; else echo '<font color="#999999">Pendente</font>'; ?></a></td>

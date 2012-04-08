@@ -28,8 +28,10 @@
 		$config = array('auth' => MAIL_SMTPAUTH,
 						'username' => MAIL_USER,
 						'password' => MAIL_PASS,
-						'ssl'  =>MAIL_SMTPSECURE,
 						'port' => MAIL_PORT);
+		if (MAIL_SMTPSECURE<>null)
+			$config['ssl'] = MAIL_SMTPSECURE;
+
 		$transport = new Zend_Mail_Transport_Smtp(MAIL_HOST, $config);
 		Zend_Mail::setDefaultTransport($transport);
 

@@ -1,8 +1,8 @@
 
 
       <hr>
-      <footer>
-		  <p>&copy; <?=$BUSINESS?></p>
+      <footer class='no-print'>
+		  <?=$BUSINESS?>
       </footer>
     </div><!--/.fluid-container-->
 

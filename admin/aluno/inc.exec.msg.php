@@ -35,3 +35,11 @@ $msgSucesso = <<<end
 	</a>
 </div>
 end;
+
+# sucesso professor
+$msgAlunoSucesso = <<<end
+<div class='alert alert-success'>
+	<a class="close" data-dismiss="alert">×</a>
+	<b>$res[nome]</b> seus dados foram atualizados com êxito!
+</div>
+end;
