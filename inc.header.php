@@ -20,11 +20,8 @@
     <meta name="description" content="">
     <meta name="author" content="Lucas Serafim - lucasserafim.com.br">
     <!-- Le styles -->
-    <link href="<?=$rp?>assets/css/bootstrap.css" rel="stylesheet">
-    <link href="<?=$rp?>assets/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="<?=$rp?>assets/css/docs.css" rel="stylesheet">
-    <link href="<?=$rp?>assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="<?=$rp?>css/bootstrap-personal.css" rel="stylesheet">
+    <link href="<?=$rp?>bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=$rp?>css/application.css" rel="stylesheet">
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
