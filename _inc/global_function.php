@@ -3,6 +3,78 @@
 /*
  *retorna array com todas as disciplinas
  */
+function getListAtividade()
+{
+	global $conn;
+	/*
+	 *query da disciplina
+	 */
+	$sqld = "SELECT 
+				cat_id,
+				cat_titulo
+
+			FROM ".TABLE_PREFIX."_categoria
+			WHERE cat_status=1 AND cat_area='Atividade'
+			ORDER BY cat_titulo";
+
+	$disciplina = array();
+	if(!$qryd = $conn->prepare($sqld))
+		echo divAlert($conn->error, 'error');
+
+	else {
+
+		$qryd->execute();
+		$qryd->bind_result($id, $titulo);
+
+		while ($qryd->fetch())
+			$disciplina[$id] = $titulo;
+
+		$qryd->close();
+
+
+	}
+
+	return $disciplina;
+}
+/*
+ *retorna array com todas as disciplinas
+ */
+function getListTurma()
+{
+	global $conn;
+	/*
+	 *query da disciplina
+	 */
+	$sqld = "SELECT 
+				cat_id,
+				cat_titulo
+
+			FROM ".TABLE_PREFIX."_categoria
+			WHERE cat_status=1 AND cat_area='Turmas'
+			ORDER BY cat_titulo";
+
+	$disciplina = array();
+	if(!$qryd = $conn->prepare($sqld))
+		echo divAlert($conn->error, 'error');
+
+	else {
+
+		$qryd->execute();
+		$qryd->bind_result($id, $titulo);
+
+		while ($qryd->fetch())
+			$disciplina[$id] = $titulo;
+
+		$qryd->close();
+
+
+	}
+
+	return $disciplina;
+}
+/*
+ *retorna array com todas as disciplinas
+ */
 function getListDisciplinas()
 {
 	global $conn;
