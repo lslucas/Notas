@@ -185,7 +185,7 @@ $row_actions .= <<<end
           <ul class="dropdown-menu">
             <li><a href="?p=$p&update&item=$id" class='tip' title='Clique para editar o ítem selecionado'><i class="icon-pencil"></i> Edit</a></li>
             <li><a href="#rm-modal{$id}" class='tip' data-toggle='modal' title="Clique para remover o ítem selecionado"><i class="icon-trash"></i> Delete</a></li>
-			<li><a href="?p=$p&status&item=$id&noVisual" class='tip' title='Clique para alterar o status do ítem selecionado' id='$id' name='$nome'><i class="{$statusIcon}"></i> {$statusLabel}</a></li>
+			<li><a href="?p=$p&status&item=$id&noVisual" class='tip status status$id' title='Clique para alterar o status do ítem selecionado' id='$id' name='$nome'><i class="{$statusIcon}"></i> {$statusLabel}</a></li>
             <li class="divider"></li>
 			{$liTurmas}
           </ul>

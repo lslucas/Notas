@@ -54,6 +54,7 @@ td.showDragHandle {
 }
 	*/
 .column-container {
+	text-align:left;
 	/*margin-top: 60px;*/
 }
 .control-group.info input,

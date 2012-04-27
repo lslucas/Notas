@@ -92,8 +92,9 @@
 				foreach ($lstDisciplinas as $dcpId=>$dcpNome) {
 					$class = $w==0 ? ' active' : null;
 
+					echo "\n\t\t<div class='tab-pane{$class}' id='graph{$dcpId}'>";
+					if (isset($jsonMediaDisciplina[$dcpId])) {
 			?>
-			<div class="tab-pane<?=$class?>" id="graph<?=$dcpId?>">
 				<script type="text/javascript">
 
 					google.load('visualization', '1', {packages: ['corechart']});
@@ -121,7 +122,13 @@
 
 					google.setOnLoadCallback(drawVisualization);
 				</script>
-				<div id="chart_div<?=$dcpId?>" style="width: 700px; height: 400px;"></div>
+				<center>
+					<div id="chart_div<?=$dcpId?>" style="width: 700px; height: 400px;"></div>
+				</center>
+				<?php
+
+						}
+				?>
 
 
 				<!-- LISTA SIMPLES -->
