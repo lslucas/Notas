@@ -144,6 +144,7 @@ $sql = "SELECT  ${var['pre']}_id,
       <tr>
 <!--        <th width="25px"></th>-->
         <th style='min-width:120px;'>Nome</th>
+        <th width="250px">Turma</th>
         <th width="120px">Telefone</th>
         <th width="120px">Celular</th>
       </tr>
@@ -169,10 +170,13 @@ if ($status==1) {
 
 $turma = explode(',', $turmas);
 $liTurmas = null;
+$todasTurmas = null;
 foreach ($turma as $trm) {
 	$turmaNome = isset($lstTurmas[$trm]) ? $lstTurmas[$trm] : '[indefinido]';
+	$todasTurmas = isset($lstTurmas[$trm]) ? $lstTurmas[$trm].', ' : null;
 	$liTurmas .= "<li><a href='?p=$p&desempenho&item=$id&adm_id=$adm_id&turma=$trm'>Desempenho no $turmaNome</a></li>";
 }
+
 if (empty($liTurmas))
 	$liTurmas .= "<li>Sem Turma</li>";
 
@@ -236,6 +240,9 @@ end;
 			<?=$nome?>
 			<br/><?=$email?>
 			<div class='row-actions muted small'><?=$row_actions?></div>
+		</td>
+		<td>
+			<?=substr($todasTurmas, 0, -2);?>
 		</td>
 		<td>
 			<?=$telefone?>
