@@ -63,7 +63,7 @@
 
 
 
- if ($act=='update') {
+ if ($act=='update' || isset($_GET['item'])) {
 	/*
 	 *RESGATA ID DO ALUNO
 	 */
@@ -94,7 +94,7 @@
    }
 
 
- if ($act=='update') {
+ if ($act=='update' || isset($_GET['item'])) {
   $sql_admform = "SELECT adm_nome, adm_email, adm_senha FROM ".TABLE_PREFIX."_administrador WHERE adm_tipo='Aluno' AND adm_id=".$val['adm_id'];
   $qry_admform = $conn->query($sql_admform);
   $admrow = $qry_admform->fetch_array();

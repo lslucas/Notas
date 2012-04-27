@@ -1,4 +1,6 @@
 <?php
+	$lstTurmas = getListTurma();
+
 
   /*
    *busca total de itens e faz variaveis de paginação
@@ -78,16 +80,17 @@ $sql = "SELECT  ${var['pre']}_id,
 		${var['pre']}_telefone,
 		${var['pre']}_celular,
 		${var['pre']}_status,
-		(SELECT rag_imagem FROM ".TABLE_PREFIX."_r_${var['pre']}_galeria WHERE rag_adm_id={$var['pre']}_adm_id ORDER BY rag_pos DESC LIMIT 1) imagem 
+		(SELECT rag_imagem FROM ".TABLE_PREFIX."_r_${var['pre']}_galeria WHERE rag_adm_id={$var['pre']}_adm_id ORDER BY rag_pos DESC LIMIT 1) imagem,
+		(SELECT GROUP_CONCAT(rat_cat_id) FROM ".TABLE_PREFIX."_r_alu_turmas WHERE rat_adm_id={$var['pre']}_adm_id)
 		FROM ".TABLE_PREFIX."_${var['path']} 
 		INNER JOIN ".TABLE_PREFIX."_administrador
 			ON adm_id={$var['pre']}_adm_id
+
     $where
     ORDER BY $orderby
 
     LIMIT $limit_start,$limit_end
     ";
-
 
  if (!$qry = $conn->prepare($sql)) {
   echo 'Houve algum erro durante a execução da consulta<p class="code">'.$sql.'</p><hr>';
@@ -96,7 +99,7 @@ $sql = "SELECT  ${var['pre']}_id,
 
     #$sql->bind_param('s', $data); 
     $qry->execute();
-    $qry->bind_result($id, $adm_id, $nome, $email, $registro, $nascimento, $cpf, $telefone, $celular, $status, $imagem);
+    $qry->bind_result($id, $adm_id, $nome, $email, $registro, $nascimento, $cpf, $telefone, $celular, $status, $imagem, $turmas);
 
 
     switch($total_itens) {
@@ -139,8 +142,7 @@ $sql = "SELECT  ${var['pre']}_id,
 <table class="table table-condensed table-striped">
    <thead> 
       <tr>
-<!--        <th width="5px"><input type='checkbox' name='check-all' value='1'></th>-->
-        <th width="25px"></th>
+<!--        <th width="25px"></th>-->
         <th style='min-width:120px;'>Nome</th>
         <th width="120px">Telefone</th>
         <th width="120px">Celular</th>
@@ -156,18 +158,40 @@ $sql = "SELECT  ${var['pre']}_id,
 
 $delete_images = "&prefix=r_${var['pre']}_galeria&pre=rag&col=imagem&folder=${var['imagem_folderlist']}";
 
+if ($status==1) {
+	$statusLabel = '<font color="#000000">Ativo</font>'; 
+	$statusIcon = 'icon-eye-open';
 
-$row_actions = <<<end
-<a class='tip' data-toggle='modal' href='#rm-modal{$id}' title="Clique para remover o ítem selecionado">Remover</a>
-| <a class='tip' href="?p=$p&update&item=$id" title='Clique para editar o ítem selecionado'>Editar</a>
-| <a class='tip status status$id' href='?p=$p&status&item=$id&noVisual' title="Clique para alterar o status do ítem selecionado" id="$id" name='$nome'>
+} else {
+	$statusLabel =  '<font color="#999999">Bloqueado</font>';
+	$statusIcon = 'icon-eye-close';
+}
+
+$turma = explode(',', $turmas);
+$liTurmas = null;
+foreach ($turma as $trm) {
+	$turmaNome = isset($lstTurmas[$trm]) ? $lstTurmas[$trm] : '[indefinido]';
+	$liTurmas .= "<li><a href='?p=$p&desempenho&item=$id&adm_id=$adm_id&turma=$trm'>Desempenho no $turmaNome</a></li>";
+}
+if (empty($liTurmas))
+	$liTurmas .= "<li>Sem Turma</li>";
+
+
+$row_actions = null; 
+$row_actions .= <<<end
+		<div class="btn-group">
+          <a class="btn btn-mini" href="javascript:void(0);"><i class="icon-cog "></i></a>
+          <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#" style='line-height:15px;'><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="?p=$p&update&item=$id" class='tip' title='Clique para editar o ítem selecionado'><i class="icon-pencil"></i> Edit</a></li>
+            <li><a href="#rm-modal{$id}" class='tip' data-toggle='modal' title="Clique para remover o ítem selecionado"><i class="icon-trash"></i> Delete</a></li>
+			<li><a href="?p=$p&status&item=$id&noVisual" class='tip' title='Clique para alterar o status do ítem selecionado' id='$id' name='$nome'><i class="{$statusIcon}"></i> {$statusLabel}</a></li>
+            <li class="divider"></li>
+			{$liTurmas}
+          </ul>
+		</div>
 end;
 
-if ($status==1) 
-	$row_actions .= '<font color="#000000">Ativo</font>'; 
-else $row_actions .=  '<font color="#999999">Bloqueado</font>';
-
-$row_actions .= "</a>";
 
 ?>
 	<div class="modal fade" id="rm-modal<?=$id?>">
@@ -184,6 +208,7 @@ $row_actions .= "</a>";
 		</div>
 	</div>
 	<tr id="tr<?=$id?>">
+			<?php /*
 		<td>
 			<center>
 				<?php 
@@ -203,8 +228,12 @@ $row_actions .= "</a>";
 				</div>
 			</center>
 		</td>
+			*/ ?>
 		<td>
-			<?=$nome?> [<?=$registro?>]
+			<?php if (!empty($registro)) { ?>
+			<span class='label'><?=$registro?></span>
+			<?php } ?>
+			<?=$nome?>
 			<br/><?=$email?>
 			<div class='row-actions muted small'><?=$row_actions?></div>
 		</td>

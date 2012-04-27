@@ -57,7 +57,7 @@
 	echo "<ul class='nav nav-tabs'>";
 
 	foreach ($turmas as $id=>$turma) {
-		echo "\n\t<li><a href='#{$turma['link']}' id='{$id}' data-toggle='tab'>{$turma['ano']} - {$turma['nome']} <span class='badge badge-info'>{$turma['num_alunos']}</span></a></li>";
+		echo "\n\t<li><a href='#{$turma['link']}' id='{$id}' class='tabNotas' data-toggle='tab'>{$turma['ano']} - {$turma['nome']} <span class='badge badge-info'>{$turma['num_alunos']}</span></a></li>";
 	}
 
 	echo "\n</ul>";

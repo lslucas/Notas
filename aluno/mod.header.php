@@ -1,10 +1,22 @@
 <?php
 ## NOTA: CASO EM NENHUM OUTRO MODULO SEJA DEFINIDO O ARQUIVO HEADER, ESSE SERA O ARQUIVO PADRAO
-
-
 # CSS INCLUIDO NO inc.header.php
 $include_css = <<<end
 end;
+
+
+/*
+ *grafico para desempenho dos alunos
+ */
+$scriptInc = isset($_GET['desempenho']) ? '' : null;
+$extraJS = <<<end
+end;
+
+	if (!isset($_GET['desempenho']))
+		$extraJS = null;
+/*
+ * // fim grafico para desempenho dos alunos
+ */
 
 
 # JS INCLUIDO NO inc.header.php, também pode conter codigo js <script>alert();</script>
@@ -14,10 +26,11 @@ $include_js = <<<end
     <script type="text/javascript" src="${rp}js/jquery.blockUI.js"></script>
     <script type="text/javascript" src="${rp}js/jquery.maskedinput-1.2.2.min.js"></script>
     <script type="text/javascript" src="${rp}js/jquery.validate.min.js"></script>
-    
+	{$scriptInc}
     
 
 <script>
+  {$extraJS}
   $(function(){
       // validação do formulario, todos os campos com a classe
       // class="required" serao validados
@@ -32,9 +45,35 @@ $include_js = <<<end
 	});
 
 
+	/*
+	 *notas, salvar
+	 */
+	$('form#notas').submit(function(e) {
+
+		e.preventDefault();
+
+		$('input[type=submit]', this).attr('disabled', 'disabled');
+		$.ajax({
+		 type: "POST",
+		 url: $(this).attr('action'),
+		 data: $(this).serialize(),
+		 success: function(data) {
+			$('.msgReturn').html(data);
+			$('input[type=submit]').removeAttr('disabled');
+		 }
+		});
+
+	});
+
+
+	$('#form-back-lancamento-notas').click(function() {
+		window.location='index.php?p=aluno&notas';
+	});
+
 
 	//tabs das notas
-	$('a[data-toggle="tab"]').on('shown', function (e) {
+	//$('a[data-toggle="tab"]').on('shown', function (e) {
+	$('.tabNotas').on('shown', function (e) {
 		var id     = $(this).attr('id');
 		var target = $(this).attr('href');
 
@@ -42,7 +81,7 @@ $include_js = <<<end
 		$('.loading').show();
 		$.ajax({
 			type: "POST",
-			url: '{$p}/ajax.form.notas.php',
+			url: '{$p}/ajax.form.alunos.php',
 			data: 'turma_id='+id,
 			success: function(data){
 				$('.loading').hide();
